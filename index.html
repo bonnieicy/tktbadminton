@@ -1700,7 +1700,7 @@ function updateEventsSummary() {
 // TAB 3: PARTICIPANTS
 // ============================================================
 
-function renderParticipantSummary() {
+ffunction renderParticipantSummary() {
     const container = document.getElementById('participantSummaryContainer');
     if (!container) return;
     
@@ -1720,17 +1720,32 @@ function renderParticipantSummary() {
         event.participants.forEach(p => {
             if (summary[p.name]) {
                 summary[p.name].attended++;
-                if (p.status === 'v') summary[p.name].paid++;
-                else if (p.status === 'x') {
+                if (p.status === 'v') {
+                    summary[p.name].paid++;
+                } else if (p.status === 'x') {
                     summary[p.name].unpaid++;
-                    const cost = event.costPerHead || 0;
+                    // ✅ FIXED: Use actualFee for unpaid participants
+                    const cost = event.actualFee || event.costPerHead || 0;
                     summary[p.name].totalOwed += cost;
-                    summary[p.name].events.push({ date: event.date, cost: cost, status: p.status });
+                    summary[p.name].events.push({ 
+                        date: event.date, 
+                        cost: cost, 
+                        status: p.status,
+                        actualFee: event.actualFee,
+                        shuttle: event.shuttleName
+                    });
                 } else if (p.status === 'o') {
                     summary[p.name].venueOnly++;
+                    // For 'o' (venue only), they only owe the venue cost
                     const cost = event.venueCost || 0;
                     summary[p.name].totalOwed += cost;
-                    summary[p.name].events.push({ date: event.date, cost: cost, status: p.status });
+                    summary[p.name].events.push({ 
+                        date: event.date, 
+                        cost: cost, 
+                        status: p.status,
+                        venueCost: event.venueCost,
+                        shuttle: event.shuttleName
+                    });
                 }
             }
         });
@@ -1887,46 +1902,17 @@ function renderEarnings() {
     const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
     
     sortedEvents.forEach(event => {
-        // Filter participants: exclude Bonnie and Donald
-        const nonBonnieDonald = event.participants.filter(p => p.name !== 'Bonnie' && p.name !== 'Donald');
+        const payingParticipants = event.participants.filter(p => 
+            p.name !== 'Bonnie' && p.name !== 'Donald' && p.status === 'v'
+        );
+        const unpaidParticipants = event.participants.filter(p => 
+            p.name !== 'Bonnie' && p.name !== 'Donald' && (p.status === 'x' || p.status === 'o')
+        );
         
-        // Paying participants (non-BD and status 'v')
-        const payingParticipants = nonBonnieDonald.filter(p => p.status === 'v');
-        // Unpaid participants (non-BD and status 'x' or 'o')
-        const unpaidParticipants = nonBonnieDonald.filter(p => p.status === 'x' || p.status === 'o');
-        
-        // Calculate cost per participant (shuttle + venue)
-        const baseCostPerHead = event.costPerHead || 0;
-        // Taxi cost per participant (only for those not excluded)
-        const taxiPerHead = event.taxiPerHead || 0;
-        const taxiExcluded = event.taxiExcluded || [];
-        
-        // Total cost for non-Bonnie/Donald participants
-        let eventCost = 0;
-        nonBonnieDonald.forEach(p => {
-            let cost = baseCostPerHead;
-            // Add taxi if they are not excluded from taxi and taxi cost exists
-            if (event.taxiCost > 0 && !taxiExcluded.includes(p.name)) {
-                cost += taxiPerHead;
-            }
-            eventCost += cost;
-        });
-        
-        // Collected amount from paying participants (non-BD)
+        const eventCost = event.totalCost + (event.taxiCost || 0);
         const collected = payingParticipants.length * (event.actualFee || 0);
-        
-        // Unpaid amount (non-BD)
         const unpaidAmount = unpaidParticipants.reduce((sum, p) => {
-            let cost = baseCostPerHead;
-            if (event.taxiCost > 0 && !taxiExcluded.includes(p.name)) {
-                cost += taxiPerHead;
-            }
-            // For 'o' (venue only), they only pay venue cost, not shuttle.
-            // The baseCostPerHead includes both shuttle and venue. We need to adjust.
-            // Actually, venue only means they only pay the venue cost (not shuttle).
-            // But the cost per head is total cost / all participants. This is an approximation.
-            // For simplicity, we'll keep using baseCostPerHead for both 'x' and 'o'.
-            // If you want to be exact, you can recalculate.
+            const cost = p.status === 'o' ? event.venueCost : (event.costPerHead || 0);
             return sum + cost;
         }, 0);
         
@@ -1940,7 +1926,7 @@ function renderEarnings() {
             collected: collected,
             unpaid: unpaidAmount,
             net: collected - eventCost,
-            participants: nonBonnieDonald.length,
+            participants: event.participants.length,
             paying: payingParticipants.length,
             unpaidCount: unpaidParticipants.length,
             fee: event.actualFee || 0,
@@ -1948,14 +1934,13 @@ function renderEarnings() {
         });
     });
     
-    // Build HTML (same as before, but with updated data)
     let html = `
         <div class="summary-box">
             <h3>📊 Earnings Summary <small style="font-weight: normal; color: #7f8c8d;">(Excluding Bonnie & Donald)</small></h3>
             <div class="summary-grid">
                 <div class="summary-item">
                     <div class="number">$${totalCost.toFixed(2)}</div>
-                    <div class="label">Total Cost (Non-BD)</div>
+                    <div class="label">Total Cost</div>
                 </div>
                 <div class="summary-item">
                     <div class="number">$${totalCollected.toFixed(2)}</div>
@@ -1980,7 +1965,7 @@ function renderEarnings() {
                     <tr>
                         <th>Date</th>
                         <th>Shuttle</th>
-                        <th>Non-BD</th>
+                        <th>Total</th>
                         <th>Paying</th>
                         <th>Unpaid</th>
                         <th>Fee/Person</th>
@@ -2015,6 +2000,7 @@ function renderEarnings() {
     html += '</tbody></table></div>';
     container.innerHTML = html;
 }
+
 // ============================================================
 // TAB 5: SETTINGS
 // ============================================================
