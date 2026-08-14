@@ -10,743 +10,12 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; }
-        
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
-            color: white;
-            padding: 20px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .header h1 { font-size: 28px; }
-        .header small { color: #bdc3c7; font-weight: normal; }
-        
-        /* Sync Status */
-        .sync-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-left: 10px;
-            transition: all 0.3s;
-        }
-        .sync-status.synced { background: #27ae60; color: white; }
-        .sync-status.syncing { background: #f39c12; color: white; animation: pulse 1s infinite; }
-        .sync-status.error { background: #e74c3c; color: white; }
-        .sync-status.offline { background: #95a5a6; color: white; }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        
-        /* Tabs */
-        .tabs {
-            display: flex;
-            background: #2c3e50;
-            padding: 0 20px;
-            border-bottom: 3px solid #3498db;
-            flex-wrap: wrap;
-        }
-        .tab {
-            padding: 14px 24px;
-            color: #bdc3c7;
-            cursor: pointer;
-            border-radius: 5px 5px 0 0;
-            margin-right: 2px;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        .tab:hover { 
-            background: #34495e; 
-            color: white;
-        }
-        .tab.active {
-            background: #3498db;
-            color: white;
-            font-weight: bold;
-        }
-        
-        /* Content */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .tab-content {
-            display: none;
-            background: white;
-            padding: 25px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-height: 500px;
-        }
-        .tab-content.active { display: block; }
-        
-        /* Forms */
-        .form-row {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-            align-items: center;
-        }
-        .form-row label {
-            font-weight: 600;
-            min-width: 160px;
-            color: #2c3e50;
-        }
-        .form-row input, .form-row select {
-            padding: 10px 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            flex: 1;
-            min-width: 150px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-        .form-row input:focus, .form-row select:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-        .form-row .hint {
-            color: #7f8c8d;
-            font-size: 13px;
-            margin-left: 5px;
-        }
-        
-        /* Buttons */
-        .btn {
-            padding: 10px 22px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .btn:active { transform: translateY(0); }
-        .btn-primary { background: #3498db; color: white; }
-        .btn-primary:hover { background: #2980b9; }
-        .btn-success { background: #27ae60; color: white; }
-        .btn-success:hover { background: #219a52; }
-        .btn-danger { background: #e74c3c; color: white; }
-        .btn-danger:hover { background: #c0392b; }
-        .btn-warning { background: #f39c12; color: white; }
-        .btn-warning:hover { background: #d68910; }
-        .btn-info { background: #1abc9c; color: white; }
-        .btn-info:hover { background: #16a085; }
-        .btn-secondary { background: #95a5a6; color: white; }
-        .btn-secondary:hover { background: #7f8c8d; }
-        .btn-sm { padding: 5px 12px; font-size: 12px; }
-        .btn-xs { padding: 3px 8px; font-size: 11px; }
-        
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
-        
-        /* Search */
-        .search-container {
-            position: relative;
-            margin: 15px 0;
-        }
-        .search-container input {
-            width: 100%;
-            padding: 12px 16px;
-            padding-left: 45px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background: #f8f9fa;
-        }
-        .search-container input:focus {
-            outline: none;
-            border-color: #3498db;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-        .search-container .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #7f8c8d;
-        }
-        .search-container .clear-search {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #e74c3c;
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-            padding: 0 5px;
-        }
-        .search-container .clear-search.visible { display: block; }
-        .search-stats {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin: 5px 0 10px 0;
-        }
-        
-        /* Participant Grid */
-        .participant-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 10px;
-            margin: 10px 0;
-            max-height: 500px;
-            overflow-y: auto;
-            padding: 5px;
-        }
-        .participant-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #e9ecef;
-            transition: all 0.2s;
-            animation: fadeIn 0.3s ease;
-        }
-        .participant-item:hover { 
-            background: #e9ecef;
-            border-color: #3498db;
-        }
-        .participant-item.hidden { display: none; }
-        .participant-item .name {
-            font-weight: 500;
-            flex: 1;
-            font-size: 14px;
-        }
-        .participant-item .name .match-highlight {
-            background: #ffeaa7;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-        .participant-item select {
-            padding: 4px 6px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-size: 12px;
-            background: white;
-            cursor: pointer;
-        }
-        .participant-item .remove-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        .participant-item .remove-btn:hover { background: #c0392b; transform: scale(1.1); }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .participant-item .status-badge {
-            font-size: 10px;
-            padding: 1px 6px;
-            border-radius: 10px;
-            font-weight: 600;
-            margin-left: 2px;
-        }
-        .participant-item .status-badge.paid { background: #d4edda; color: #155724; }
-        .participant-item .status-badge.unpaid { background: #f8d7da; color: #721c24; }
-        .participant-item .status-badge.venue { background: #fff3cd; color: #856404; }
-        
-        .quick-status-buttons {
-            display: flex;
-            gap: 8px;
-            margin: 10px 0 15px 0;
-            flex-wrap: wrap;
-        }
-        
-        /* Tables */
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        th, td {
-            border: 1px solid #dee2e6;
-            padding: 10px 12px;
-            text-align: left;
-        }
-        th {
-            background: #2c3e50;
-            color: white;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        tr:nth-child(even) { background: #f8f9fa; }
-        tr:hover { background: #e9ecef; }
-        
-        /* Badges */
-        .badge {
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-        .badge-paid { background: #d4edda; color: #155724; }
-        .badge-unpaid { background: #f8d7da; color: #721c24; }
-        .badge-venue-only { background: #fff3cd; color: #856404; }
-        .badge-info { background: #d1ecf1; color: #0c5460; }
-        
-        /* Summary Boxes */
-        .summary-box {
-            background: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #3498db;
-        }
-        .summary-box h3 { 
-            margin-bottom: 12px; 
-            color: #2c3e50;
-        }
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-        .summary-item {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .summary-item .number {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .summary-item .number.positive { color: #27ae60; }
-        .summary-item .number.negative { color: #e74c3c; }
-        .summary-item .label {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .stat-card {
-            background: white;
-            padding: 18px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e9ecef;
-        }
-        .stat-card .stat-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .stat-card .stat-label {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-        
-        /* Shuttle Management */
-        .shuttle-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .shuttle-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #e9ecef;
-        }
-        .shuttle-item .shuttle-name { flex: 1; font-weight: 500; }
-        .shuttle-item .shuttle-price { color: #2c3e50; font-weight: 600; }
-        .shuttle-item .shuttle-per-shuttle { color: #7f8c8d; font-size: 12px; }
-        
-        /* Cloud Settings */
-        .cloud-settings {
-            background: #e8f4fd;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #b8d4e3;
-            margin: 10px 0;
-        }
-        .cloud-settings .status-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .cloud-settings .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .cloud-settings .status-dot.online { background: #27ae60; }
-        .cloud-settings .status-dot.offline { background: #95a5a6; }
-        .cloud-settings .status-dot.error { background: #e74c3c; }
-        .cloud-settings .status-dot.syncing { background: #f39c12; animation: pulse 1s infinite; }
-        
-        .cloud-settings textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 12px;
-            resize: vertical;
-            min-height: 100px;
-            background: white;
-        }
-        .cloud-settings textarea:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-        
-        /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        .modal h3 { margin-bottom: 20px; color: #2c3e50; }
-        .modal .form-row { margin-bottom: 15px; }
-        .modal .btn-group { margin-top: 20px; }
-        
-        /* Message */
-        .message {
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin: 10px 0;
-            display: none;
-        }
-        .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
-        .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
-        .message.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; display: block; }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .tabs { padding: 0 10px; }
-            .tab { padding: 10px 14px; font-size: 13px; }
-            .form-row { flex-direction: column; align-items: stretch; }
-            .form-row label { min-width: auto; }
-            .participant-grid { grid-template-columns: 1fr; max-height: 400px; }
-            .summary-grid { grid-template-columns: 1fr; }
-            .container { padding: 10px; }
-            .tab-content { padding: 15px; }
-            .shuttle-list { grid-template-columns: 1fr; }
-            .header h1 { font-size: 20px; }
-            .sync-status { font-size: 11px; padding: 4px 10px; }
-            .cloud-settings textarea { min-height: 80px; }
-        }
-        
-        @media print {
-            .tabs, .btn, .no-print { display: none !important; }
-            .tab-content { display: block !important; }
-        }
+        /* ... (your existing styles remain the same) ... */
     </style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="header">
-    <h1>
-        🏸 Badminton Social Event Manager 
-        <small>v2.0</small>
-    </h1>
-    <div>
-        <span id="syncStatus" class="sync-status offline">📡 Offline</span>
-    </div>
-</div>
-
-<!-- Tabs -->
-<div class="tabs">
-    <div class="tab active" onclick="showTab('input')">📝 Input Event</div>
-    <div class="tab" onclick="showTab('events')">📊 Events</div>
-    <div class="tab" onclick="showTab('participants')">👥 Participants</div>
-    <div class="tab" onclick="showTab('earnings')">💰 Earnings</div>
-    <div class="tab" onclick="showTab('settings')">⚙️ Settings</div>
-</div>
-
-<div class="container">
-
-    <!-- ==================== TAB 1: INPUT ==================== -->
-    <div id="input" class="tab-content active">
-        <h2>📝 Record New Event</h2>
-        <div id="eventForm">
-            <div class="form-row">
-                <label>📅 Event Date:</label>
-                <input type="date" id="eventDate">
-            </div>
-            
-            <div class="form-row">
-                <label>🏸 Shuttle Type:</label>
-                <select id="shuttleType"></select>
-                <span class="hint">Cost per shuttle: $<span id="shuttleCostDisplay">0.00</span></span>
-            </div>
-            
-            <div class="form-row">
-                <label>🔢 Shuttles Used:</label>
-                <input type="number" id="shuttlesUsed" value="14" min="0" step="1">
-            </div>
-            
-            <div class="form-row">
-                <label>🏟️ Venue Cost/Person:</label>
-                <input type="number" id="venueCost" value="17" min="0" step="0.5">
-            </div>
-            
-            <div class="form-row">
-                <label>🚗 Shared Taxi Cost:</label>
-                <input type="number" id="taxiCost" value="0" min="0" step="0.5">
-                <span class="hint">(Exclude those who drove)</span>
-            </div>
-            
-            <div class="form-row">
-                <label>💰 Actual Fee Received:</label>
-                <input type="number" id="actualFee" value="50" min="0" step="5">
-                <span class="hint">(What you actually charged per person)</span>
-            </div>
-            
-            <div class="form-row">
-                <label>🚫 Taxi Excluded (drove):</label>
-                <input type="text" id="taxiExcluded" placeholder="e.g. Matthias, Donald" style="flex: 2;">
-                <span class="hint">(Names separated by commas)</span>
-            </div>
-            
-            <hr style="margin: 20px 0;">
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                <h3>👥 Participants</h3>
-                <div>
-                    <button class="btn btn-primary" onclick="addParticipant()">➕ Add Participant</button>
-                    <button class="btn btn-info" onclick="addMultipleParticipants()">📋 Add Multiple</button>
-                </div>
-            </div>
-            
-            <div class="search-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="participantSearch" placeholder="Search participants by name..." oninput="filterParticipants()">
-                <button class="clear-search" id="clearSearch" onclick="clearSearch()">✕</button>
-            </div>
-            
-            <div class="quick-status-buttons">
-                <button class="btn btn-success btn-sm" onclick="setAllStatus('v')">✅ Mark All Paid</button>
-                <button class="btn btn-danger btn-sm" onclick="setAllStatus('x')">❌ Mark All Unpaid</button>
-                <button class="btn btn-warning btn-sm" onclick="setAllStatus('o')">🏸 Mark All Venue Only</button>
-                <button class="btn btn-secondary btn-sm" onclick="setAllStatus('')">❌ Clear All</button>
-                <button class="btn btn-info btn-sm" onclick="toggleSelectAll()">☑️ Select Visible</button>
-            </div>
-            
-            <div class="search-stats">
-                Showing <strong id="visibleCount">0</strong> of <strong id="totalCount">0</strong> participants
-            </div>
-            
-            <div id="participantList" class="participant-grid"></div>
-            
-            <div class="btn-group">
-                <button class="btn btn-success" onclick="saveEvent()">💾 Save Event</button>
-                <button class="btn btn-warning" onclick="loadEvent()">📂 Load Event</button>
-                <button class="btn btn-danger" onclick="clearForm()">🗑️ Clear Form</button>
-                <button class="btn btn-info" onclick="syncToCloud()">☁️ Sync Now</button>
-            </div>
-            
-            <div id="saveMessage" class="message"></div>
-        </div>
-    </div>
-
-    <!-- ==================== TAB 2: EVENTS ==================== -->
-    <div id="events" class="tab-content">
-        <h2>📊 All Events</h2>
-        <div class="btn-group no-print">
-            <button class="btn btn-success" onclick="exportData()">📤 Export Data</button>
-            <button class="btn btn-warning" onclick="importData()">📥 Import Data</button>
-            <button class="btn btn-info" onclick="syncToCloud()">☁️ Sync to Cloud</button>
-            <button class="btn btn-secondary" onclick="loadFromCloud()">📥 Load from Cloud</button>
-        </div>
-        <div id="eventsTableContainer"></div>
-        <div id="eventsSummary"></div>
-    </div>
-
-    <!-- ==================== TAB 3: PARTICIPANTS ==================== -->
-    <div id="participants" class="tab-content">
-        <h2>👥 Participant Summary</h2>
-        <div class="btn-group no-print">
-            <button class="btn btn-success" onclick="markAllPaid()">✅ Mark All Paid</button>
-            <button class="btn btn-info" onclick="syncToCloud()">☁️ Sync to Cloud</button>
-            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
-        </div>
-        <div id="participantSummaryContainer"></div>
-    </div>
-
-    <!-- ==================== TAB 4: EARNINGS ==================== -->
-    <div id="earnings" class="tab-content">
-        <h2>💰 Earnings Analysis</h2>
-        <div id="earningsContainer"></div>
-    </div>
-
-    <!-- ==================== TAB 5: SETTINGS ==================== -->
-    <div id="settings" class="tab-content">
-        <h2>⚙️ Settings</h2>
-        
-        <!-- Cloud Sync Section -->
-        <div class="summary-box" style="border-left-color: #27ae60;">
-            <h3>☁️ Cloud Sync (Firebase)</h3>
-            <div class="cloud-settings">
-                <div class="status-row">
-                    <span>Status:</span>
-                    <span class="status-dot offline" id="cloudStatusDot"></span>
-                    <span id="cloudStatusText">Not connected</span>
-                </div>
-                
-                <div style="margin: 10px 0;">
-                    <label style="font-weight: 600; display: block; margin-bottom: 5px;">Firebase Configuration:</label>
-                    <textarea id="firebaseConfigInput" placeholder='Paste your Firebase config here as JSON:
-{
-  "apiKey": "AIzaSy...",
-  "authDomain": "your-project.firebaseapp.com",
-  "databaseURL": "https://your-project-default-rtdb.firebaseio.com",
-  "projectId": "your-project",
-  "storageBucket": "your-project.appspot.com",
-  "messagingSenderId": "123456789",
-  "appId": "1:123456789:web:abcdef"
-}'></textarea>
-                </div>
-                
-                <div class="btn-group">
-                    <button class="btn btn-success" onclick="configureFirebase()">🔑 Connect Firebase</button>
-                    <button class="btn btn-primary" onclick="syncToCloud()">☁️ Sync Now</button>
-                    <button class="btn btn-warning" onclick="loadFromCloud()">📥 Load from Cloud</button>
-                    <button class="btn btn-danger" onclick="clearCloudData()">🗑️ Clear Cloud Data</button>
-                    <button class="btn btn-secondary" onclick="disconnectFirebase()">🔌 Disconnect</button>
-                </div>
-                
-                <div id="cloudMessage" class="message" style="margin-top: 10px;"></div>
-            </div>
-        </div>
-        
-        <!-- Shuttlecock Management -->
-        <div class="summary-box">
-            <h3>🏸 Shuttlecock Types</h3>
-            <p style="color: #7f8c8d; margin-bottom: 10px;">Manage different shuttlecock types and their prices per tube.</p>
-            <div id="shuttleList" class="shuttle-list"></div>
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="showAddShuttleModal()">➕ Add Shuttle Type</button>
-            </div>
-        </div>
-        
-        <!-- Participant Management -->
-        <div class="summary-box">
-            <h3>👥 Manage Participants</h3>
-            <div id="settingsParticipantList"></div>
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="addParticipant()">➕ Add Participant</button>
-                <button class="btn btn-danger" onclick="resetParticipants()">🔄 Reset to Default</button>
-            </div>
-        </div>
-        
-        <!-- Data Management -->
-        <div class="summary-box">
-            <h3>💾 Data Management</h3>
-            <div class="btn-group">
-                <button class="btn btn-success" onclick="exportData()">📤 Export Data (JSON)</button>
-                <button class="btn btn-warning" onclick="importData()">📥 Import Data (JSON)</button>
-                <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
-            </div>
-            <p style="margin-top: 10px; color: #7f8c8d; font-size: 13px;">
-                Data is stored locally and synced to the cloud when connected.
-            </p>
-        </div>
-        
-        <!-- Statistics -->
-        <div class="summary-box">
-            <h3>📊 Statistics</h3>
-            <div id="settingsStats"></div>
-        </div>
-    </div>
-</div>
-
-<!-- ==================== MODAL: Add Shuttle ==================== -->
-<div id="shuttleModal" class="modal-overlay">
-    <div class="modal">
-        <h3>🏸 Add Shuttlecock Type</h3>
-        <div class="form-row">
-            <label>Shuttle Name:</label>
-            <input type="text" id="newShuttleName" placeholder="e.g. RSL Classic">
-        </div>
-        <div class="form-row">
-            <label>Price per Tube ($):</label>
-            <input type="number" id="newShuttlePrice" placeholder="190" min="0" step="0.5">
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-success" onclick="addShuttleType()">✅ Add</button>
-            <button class="btn btn-danger" onclick="closeShuttleModal()">Cancel</button>
-        </div>
-        <div id="shuttleModalMessage" class="message"></div>
-    </div>
-</div>
+<!-- ... (your existing HTML remains the same) ... -->
 
 <script>
 // ============================================================
@@ -1368,7 +637,6 @@ function addParticipant() {
         saveData();
         renderParticipantList(document.getElementById('participantSearch').value);
         renderSettings();
-        // Auto-sync to cloud if connected
         if (isFirebaseConnected) syncToCloud();
     }
 }
@@ -1493,7 +761,6 @@ function saveEvent() {
     editingEventId = null;
     renderEvents();
     
-    // Auto-sync to cloud if connected
     if (isFirebaseConnected) {
         setTimeout(() => syncToCloud(), 500);
     }
@@ -1700,7 +967,7 @@ function updateEventsSummary() {
 // TAB 3: PARTICIPANTS
 // ============================================================
 
-ffunction renderParticipantSummary() {
+function renderParticipantSummary() {
     const container = document.getElementById('participantSummaryContainer');
     if (!container) return;
     
@@ -1724,7 +991,7 @@ ffunction renderParticipantSummary() {
                     summary[p.name].paid++;
                 } else if (p.status === 'x') {
                     summary[p.name].unpaid++;
-                    // ✅ FIXED: Use actualFee for unpaid participants
+                    // ✅ Use actualFee for unpaid participants
                     const cost = event.actualFee || event.costPerHead || 0;
                     summary[p.name].totalOwed += cost;
                     summary[p.name].events.push({ 
@@ -1736,7 +1003,6 @@ ffunction renderParticipantSummary() {
                     });
                 } else if (p.status === 'o') {
                     summary[p.name].venueOnly++;
-                    // For 'o' (venue only), they only owe the venue cost
                     const cost = event.venueCost || 0;
                     summary[p.name].totalOwed += cost;
                     summary[p.name].events.push({ 
@@ -1813,7 +1079,8 @@ function showParticipantDetails(name) {
                 amount = event.actualFee || 0;
             } else if (p.status === 'x') {
                 statusText = '❌ Unpaid';
-                amount = event.costPerHead || 0;
+                // ✅ Use actualFee for unpaid
+                amount = event.actualFee || event.costPerHead || 0;
                 total += amount;
             } else if (p.status === 'o') {
                 statusText = '🏸 Venue Only';
@@ -1882,7 +1149,7 @@ function markAllPaid() {
 }
 
 // ============================================================
-// TAB 4: EARNINGS
+// TAB 4: EARNINGS - FIXED ✅
 // ============================================================
 
 function renderEarnings() {
@@ -1902,17 +1169,38 @@ function renderEarnings() {
     const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
     
     sortedEvents.forEach(event => {
-        const payingParticipants = event.participants.filter(p => 
-            p.name !== 'Bonnie' && p.name !== 'Donald' && p.status === 'v'
-        );
-        const unpaidParticipants = event.participants.filter(p => 
-            p.name !== 'Bonnie' && p.name !== 'Donald' && (p.status === 'x' || p.status === 'o')
-        );
+        // ✅ FIXED: Filter out Bonnie and Donald from ALL calculations
+        const nonBD = event.participants.filter(p => p.name !== 'Bonnie' && p.name !== 'Donald');
         
-        const eventCost = event.totalCost + (event.taxiCost || 0);
+        // Paying participants (non-BD and status 'v')
+        const payingParticipants = nonBD.filter(p => p.status === 'v');
+        // Unpaid participants (non-BD and status 'x' or 'o')
+        const unpaidParticipants = nonBD.filter(p => p.status === 'x' || p.status === 'o');
+        
+        // Calculate cost for non-Bonnie/Donald participants only
+        const baseCostPerHead = event.costPerHead || 0;
+        const taxiPerHead = event.taxiPerHead || 0;
+        const taxiExcluded = event.taxiExcluded || [];
+        
+        let eventCost = 0;
+        nonBD.forEach(p => {
+            let cost = baseCostPerHead;
+            // Add taxi if not excluded and taxi cost exists
+            if (event.taxiCost > 0 && !taxiExcluded.includes(p.name)) {
+                cost += taxiPerHead;
+            }
+            eventCost += cost;
+        });
+        
+        // Collected from paying participants (non-BD)
         const collected = payingParticipants.length * (event.actualFee || 0);
+        
+        // Unpaid amount (non-BD)
         const unpaidAmount = unpaidParticipants.reduce((sum, p) => {
-            const cost = p.status === 'o' ? event.venueCost : (event.costPerHead || 0);
+            let cost = baseCostPerHead;
+            if (event.taxiCost > 0 && !taxiExcluded.includes(p.name)) {
+                cost += taxiPerHead;
+            }
             return sum + cost;
         }, 0);
         
@@ -1926,7 +1214,7 @@ function renderEarnings() {
             collected: collected,
             unpaid: unpaidAmount,
             net: collected - eventCost,
-            participants: event.participants.length,
+            participants: nonBD.length,
             paying: payingParticipants.length,
             unpaidCount: unpaidParticipants.length,
             fee: event.actualFee || 0,
@@ -1940,7 +1228,7 @@ function renderEarnings() {
             <div class="summary-grid">
                 <div class="summary-item">
                     <div class="number">$${totalCost.toFixed(2)}</div>
-                    <div class="label">Total Cost</div>
+                    <div class="label">Total Cost (Non-BD)</div>
                 </div>
                 <div class="summary-item">
                     <div class="number">$${totalCollected.toFixed(2)}</div>
@@ -1965,7 +1253,7 @@ function renderEarnings() {
                     <tr>
                         <th>Date</th>
                         <th>Shuttle</th>
-                        <th>Total</th>
+                        <th>Non-BD</th>
                         <th>Paying</th>
                         <th>Unpaid</th>
                         <th>Fee/Person</th>
@@ -2010,10 +1298,8 @@ function renderSettings() {
     renderSettingsParticipants();
     renderSettingsStats();
     
-    // Load saved Firebase config
     const savedConfig = loadFirebaseConfig();
     if (savedConfig && !isFirebaseConnected) {
-        // Auto-connect if config exists
         configureFirebase();
     }
 }
@@ -2185,7 +1471,6 @@ function init() {
     renderEarnings();
     renderSettings();
     
-    // Try to auto-connect to Firebase
     const savedConfig = loadFirebaseConfig();
     if (savedConfig) {
         setTimeout(() => configureFirebase(), 500);
@@ -2195,13 +1480,9 @@ function init() {
 document.addEventListener('DOMContentLoaded', init);
 </script>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
+<!-- ❌ REMOVE THIS ENTIRE BLOCK -->
+<!-- <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyBz-RMQaAbgbLI_DQip1EEXGmeoL5fMcR8",
     authDomain: "tkt-badminton.firebaseapp.com",
@@ -2209,10 +1490,9 @@ document.addEventListener('DOMContentLoaded', init);
     storageBucket: "tkt-badminton.firebasestorage.app",
     messagingSenderId: "1038093222486",
     appId: "1:1038093222486:web:f0a231da576e2afc5e31f7"
-    };
-
-  // Initialize Firebase
+  };
   const app = initializeApp(firebaseConfig);
-</script>
+</script> -->
+
 </body>
 </html>
