@@ -1902,18 +1902,32 @@ function renderEarnings() {
     const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
     
     sortedEvents.forEach(event => {
-        const payingParticipants = event.participants.filter(p => 
-            p.name !== 'Bonnie' && p.name !== 'Donald' && p.status === 'v'
-        );
-        const unpaidParticipants = event.participants.filter(p => 
-            p.name !== 'Bonnie' && p.name !== 'Donald' && (p.status === 'x' || p.status === 'o')
-        );
+        // All participants (including Bonnie and Donald)
+        const allParticipants = event.participants;
         
+        // Paying participants (status 'v')
+        const payingParticipants = allParticipants.filter(p => p.status === 'v');
+        // Unpaid participants (status 'x' or 'o')
+        const unpaidParticipants = allParticipants.filter(p => p.status === 'x' || p.status === 'o');
+        
+        // Total cost = shuttle + venue + taxi (flat)
+        // event.totalCost already includes shuttle+venue for all participants
+        // Add taxi cost (shared) - taxiCost is the total taxi expense
         const eventCost = event.totalCost + (event.taxiCost || 0);
+        
+        // Collected = number of paid participants * actualFee
         const collected = payingParticipants.length * (event.actualFee || 0);
+        
+        // Unpaid amount: for 'x' use actualFee, for 'o' use venueCost
         const unpaidAmount = unpaidParticipants.reduce((sum, p) => {
-            const cost = p.status === 'o' ? event.venueCost : (event.costPerHead || 0);
-            return sum + cost;
+            if (p.status === 'x') {
+                // They owe the actual fee (the round number you charge)
+                return sum + (event.actualFee || 0);
+            } else if (p.status === 'o') {
+                // Venue only: they owe only the venue cost
+                return sum + (event.venueCost || 0);
+            }
+            return sum;
         }, 0);
         
         totalCost += eventCost;
@@ -1926,7 +1940,7 @@ function renderEarnings() {
             collected: collected,
             unpaid: unpaidAmount,
             net: collected - eventCost,
-            participants: event.participants.length,
+            participants: allParticipants.length,
             paying: payingParticipants.length,
             unpaidCount: unpaidParticipants.length,
             fee: event.actualFee || 0,
@@ -1936,7 +1950,7 @@ function renderEarnings() {
     
     let html = `
         <div class="summary-box">
-            <h3>📊 Earnings Summary <small style="font-weight: normal; color: #7f8c8d;">(Excluding Bonnie & Donald)</small></h3>
+            <h3>📊 Earnings Summary</h3>
             <div class="summary-grid">
                 <div class="summary-item">
                     <div class="number">$${totalCost.toFixed(2)}</div>
