@@ -13,7 +13,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; }
         
-        /* Header */
         .header {
             background: linear-gradient(135deg, #1a2a3a, #2c3e50);
             color: white;
@@ -27,7 +26,6 @@
         .header h1 { font-size: 28px; }
         .header small { color: #bdc3c7; font-weight: normal; }
         
-        /* Sync Status */
         .sync-status {
             display: inline-flex;
             align-items: center;
@@ -44,12 +42,8 @@
         .sync-status.error { background: #e74c3c; color: white; }
         .sync-status.offline { background: #95a5a6; color: white; }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
         
-        /* Tabs */
         .tabs {
             display: flex;
             background: #2c3e50;
@@ -66,22 +60,10 @@
             transition: all 0.3s;
             font-weight: 500;
         }
-        .tab:hover { 
-            background: #34495e; 
-            color: white;
-        }
-        .tab.active {
-            background: #3498db;
-            color: white;
-            font-weight: bold;
-        }
+        .tab:hover { background: #34495e; color: white; }
+        .tab.active { background: #3498db; color: white; font-weight: bold; }
         
-        /* Content */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         .tab-content {
             display: none;
             background: white;
@@ -92,7 +74,6 @@
         }
         .tab-content.active { display: block; }
         
-        /* Forms */
         .form-row {
             display: flex;
             gap: 15px;
@@ -100,11 +81,7 @@
             margin-bottom: 12px;
             align-items: center;
         }
-        .form-row label {
-            font-weight: 600;
-            min-width: 160px;
-            color: #2c3e50;
-        }
+        .form-row label { font-weight: 600; min-width: 160px; color: #2c3e50; }
         .form-row input, .form-row select {
             padding: 10px 12px;
             border: 2px solid #e0e0e0;
@@ -114,17 +91,9 @@
             font-size: 14px;
             transition: border-color 0.3s;
         }
-        .form-row input:focus, .form-row select:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-        .form-row .hint {
-            color: #7f8c8d;
-            font-size: 13px;
-            margin-left: 5px;
-        }
+        .form-row input:focus, .form-row select:focus { outline: none; border-color: #3498db; }
+        .form-row .hint { color: #7f8c8d; font-size: 13px; margin-left: 5px; }
         
-        /* Buttons */
         .btn {
             padding: 10px 22px;
             border: none;
@@ -153,10 +122,8 @@
         .btn-secondary:hover { background: #7f8c8d; }
         .btn-sm { padding: 5px 12px; font-size: 12px; }
         .btn-xs { padding: 3px 8px; font-size: 11px; }
-        
         .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
         
-        /* Search */
         .search-container {
             position: relative;
             margin: 15px 0;
@@ -171,20 +138,8 @@
             transition: all 0.3s;
             background: #f8f9fa;
         }
-        .search-container input:focus {
-            outline: none;
-            border-color: #3498db;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-        .search-container .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: #7f8c8d;
-        }
+        .search-container input:focus { outline: none; border-color: #3498db; background: white; box-shadow: 0 0 0 3px rgba(52,152,219,0.1); }
+        .search-container .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #7f8c8d; }
         .search-container .clear-search {
             position: absolute;
             right: 15px;
@@ -199,13 +154,8 @@
             padding: 0 5px;
         }
         .search-container .clear-search.visible { display: block; }
-        .search-stats {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin: 5px 0 10px 0;
-        }
+        .search-stats { font-size: 13px; color: #7f8c8d; margin: 5px 0 10px 0; }
         
-        /* Participant Grid */
         .participant-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -226,29 +176,11 @@
             transition: all 0.2s;
             animation: fadeIn 0.3s ease;
         }
-        .participant-item:hover { 
-            background: #e9ecef;
-            border-color: #3498db;
-        }
+        .participant-item:hover { background: #e9ecef; border-color: #3498db; }
         .participant-item.hidden { display: none; }
-        .participant-item .name {
-            font-weight: 500;
-            flex: 1;
-            font-size: 14px;
-        }
-        .participant-item .name .match-highlight {
-            background: #ffeaa7;
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-        .participant-item select {
-            padding: 4px 6px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            font-size: 12px;
-            background: white;
-            cursor: pointer;
-        }
+        .participant-item .name { font-weight: 500; flex: 1; font-size: 14px; }
+        .participant-item .name .match-highlight { background: #ffeaa7; padding: 0 2px; border-radius: 2px; }
+        .participant-item select { padding: 4px 6px; border-radius: 4px; border: 1px solid #ddd; font-size: 12px; background: white; cursor: pointer; }
         .participant-item .remove-btn {
             background: #e74c3c;
             color: white;
@@ -265,11 +197,7 @@
             flex-shrink: 0;
         }
         .participant-item .remove-btn:hover { background: #c0392b; transform: scale(1.1); }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         
         .participant-item .status-badge {
             font-size: 10px;
@@ -282,48 +210,18 @@
         .participant-item .status-badge.unpaid { background: #f8d7da; color: #721c24; }
         .participant-item .status-badge.venue { background: #fff3cd; color: #856404; }
         
-        .quick-status-buttons {
-            display: flex;
-            gap: 8px;
-            margin: 10px 0 15px 0;
-            flex-wrap: wrap;
-        }
+        .quick-status-buttons { display: flex; gap: 8px; margin: 10px 0 15px 0; flex-wrap: wrap; }
         
-        /* Tables */
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 20px 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        th, td {
-            border: 1px solid #dee2e6;
-            padding: 10px 12px;
-            text-align: left;
-        }
-        th {
-            background: #2c3e50;
-            color: white;
-            font-weight: 600;
-            white-space: nowrap;
-        }
+        .table-wrapper { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { border: 1px solid #dee2e6; padding: 10px 12px; text-align: left; }
+        th { background: #2c3e50; color: white; font-weight: 600; white-space: nowrap; }
         tr:nth-child(even) { background: #f8f9fa; }
         tr:hover { background: #e9ecef; }
         
-        /* Expandable details */
-        .details-row {
-            display: none;
-            background: #f8f9fa;
-        }
-        .details-row.open {
-            display: table-row;
-        }
-        .details-row td {
-            padding: 10px 20px;
-        }
+        .details-row { display: none; background: #f8f9fa; }
+        .details-row.open { display: table-row; }
+        .details-row td { padding: 10px 20px; }
         .details-row .sub-table {
             width: 100%;
             border-collapse: collapse;
@@ -333,25 +231,10 @@
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .details-row .sub-table th {
-            background: #e9ecef;
-            color: #2c3e50;
-            font-weight: 600;
-            padding: 6px 12px;
-            text-align: left;
-            font-size: 12px;
-        }
-        .details-row .sub-table td {
-            padding: 6px 12px;
-            border-bottom: 1px solid #f1f3f5;
-        }
-        .details-row .sub-table tr:last-child td {
-            border-bottom: none;
-        }
-        .details-row .sub-table .total-row {
-            font-weight: bold;
-            background: #fff3cd;
-        }
+        .details-row .sub-table th { background: #e9ecef; color: #2c3e50; font-weight: 600; padding: 6px 12px; text-align: left; font-size: 12px; }
+        .details-row .sub-table td { padding: 6px 12px; border-bottom: 1px solid #f1f3f5; }
+        .details-row .sub-table tr:last-child td { border-bottom: none; }
+        .details-row .sub-table .total-row { font-weight: bold; background: #fff3cd; }
         .toggle-details {
             background: none;
             border: none;
@@ -362,11 +245,8 @@
             border-radius: 4px;
             transition: 0.2s;
         }
-        .toggle-details:hover {
-            background: #e9ecef;
-        }
+        .toggle-details:hover { background: #e9ecef; }
         
-        /* Badges */
         .badge {
             padding: 3px 10px;
             border-radius: 12px;
@@ -379,69 +259,29 @@
         .badge-venue-only { background: #fff3cd; color: #856404; }
         .badge-info { background: #d1ecf1; color: #0c5460; }
         
-        /* Summary Boxes */
-        .summary-box {
-            background: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 4px solid #3498db;
-        }
-        .summary-box h3 { 
-            margin-bottom: 12px; 
-            color: #2c3e50;
-        }
+        .summary-box { background: #ecf0f1; padding: 20px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #3498db; }
+        .summary-box h3 { margin-bottom: 12px; color: #2c3e50; }
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
         }
-        .summary-item {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .summary-item .number {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
+        .summary-item { background: white; padding: 15px; border-radius: 6px; text-align: center; }
+        .summary-item .number { font-size: 24px; font-weight: bold; color: #2c3e50; }
         .summary-item .number.positive { color: #27ae60; }
         .summary-item .number.negative { color: #e74c3c; }
-        .summary-item .label {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
+        .summary-item .label { font-size: 13px; color: #7f8c8d; margin-top: 5px; }
         
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
-        .stat-card {
-            background: white;
-            padding: 18px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid #e9ecef;
-        }
-        .stat-card .stat-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .stat-card .stat-label {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
+        .stat-card { background: white; padding: 18px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e9ecef; }
+        .stat-card .stat-value { font-size: 28px; font-weight: bold; color: #2c3e50; }
+        .stat-card .stat-label { font-size: 13px; color: #7f8c8d; margin-top: 5px; }
         
-        /* Shuttle Management */
         .shuttle-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -461,7 +301,6 @@
         .shuttle-item .shuttle-price { color: #2c3e50; font-weight: 600; }
         .shuttle-item .shuttle-per-shuttle { color: #7f8c8d; font-size: 12px; }
         
-        /* Cloud Settings */
         .cloud-settings {
             background: #e8f4fd;
             padding: 20px;
@@ -469,24 +308,12 @@
             border: 1px solid #b8d4e3;
             margin: 10px 0;
         }
-        .cloud-settings .status-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .cloud-settings .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-        }
+        .cloud-settings .status-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+        .cloud-settings .status-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
         .cloud-settings .status-dot.online { background: #27ae60; }
         .cloud-settings .status-dot.offline { background: #95a5a6; }
         .cloud-settings .status-dot.error { background: #e74c3c; }
         .cloud-settings .status-dot.syncing { background: #f39c12; animation: pulse 1s infinite; }
-        
         .cloud-settings textarea {
             width: 100%;
             padding: 10px;
@@ -498,12 +325,8 @@
             min-height: 100px;
             background: white;
         }
-        .cloud-settings textarea:focus {
-            outline: none;
-            border-color: #3498db;
-        }
+        .cloud-settings textarea:focus { outline: none; border-color: #3498db; }
         
-        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -529,7 +352,6 @@
         .modal .form-row { margin-bottom: 15px; }
         .modal .btn-group { margin-top: 20px; }
         
-        /* Message */
         .message {
             padding: 12px 16px;
             border-radius: 6px;
@@ -540,7 +362,6 @@
         .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; display: block; }
         .message.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; display: block; }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .tabs { padding: 0 10px; }
             .tab { padding: 10px 14px; font-size: 13px; }
@@ -555,27 +376,18 @@
             .sync-status { font-size: 11px; padding: 4px 10px; }
             .cloud-settings textarea { min-height: 80px; }
         }
-        
-        @media print {
-            .tabs, .btn, .no-print { display: none !important; }
-            .tab-content { display: block !important; }
-        }
+        @media print { .tabs, .btn, .no-print { display: none !important; } .tab-content { display: block !important; } }
     </style>
 </head>
 <body>
 
-<!-- Header -->
 <div class="header">
-    <h1>
-        🏸 Badminton Social Event Manager 
-        <small>v2.0</small>
-    </h1>
+    <h1>🏸 Badminton Social Event Manager <small>v2.0</small></h1>
     <div>
         <span id="syncStatus" class="sync-status offline">📡 Offline</span>
     </div>
 </div>
 
-<!-- Tabs -->
 <div class="tabs">
     <div class="tab active" onclick="showTab('input')">📝 Input Event</div>
     <div class="tab" onclick="showTab('events')">📊 Events</div>
@@ -594,43 +406,36 @@
                 <label>📅 Event Date:</label>
                 <input type="date" id="eventDate">
             </div>
-            
             <div class="form-row">
                 <label>🏸 Shuttle Type:</label>
                 <select id="shuttleType"></select>
                 <span class="hint">Cost per shuttle: $<span id="shuttleCostDisplay">0.00</span></span>
             </div>
-            
             <div class="form-row">
                 <label>🔢 Shuttles Used:</label>
                 <input type="number" id="shuttlesUsed" value="14" min="0" step="1">
             </div>
-            
             <div class="form-row">
                 <label>🏟️ Venue Cost/Person:</label>
                 <input type="number" id="venueCost" value="17" min="0" step="0.5">
+                <span class="hint">(Set to 0 if free)</span>
             </div>
-            
             <div class="form-row">
                 <label>🚗 Shared Taxi Cost:</label>
                 <input type="number" id="taxiCost" value="0" min="0" step="0.5">
                 <span class="hint">(Exclude those who drove)</span>
             </div>
-            
             <div class="form-row">
                 <label>💰 Actual Fee Received:</label>
                 <input type="number" id="actualFee" value="50" min="0" step="5">
                 <span class="hint">(What you actually charged per person)</span>
             </div>
-            
             <div class="form-row">
                 <label>🚫 Taxi Excluded (drove):</label>
                 <input type="text" id="taxiExcluded" placeholder="e.g. Matthias, Donald" style="flex: 2;">
                 <span class="hint">(Names separated by commas)</span>
             </div>
-            
             <hr style="margin: 20px 0;">
-            
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                 <h3>👥 Participants</h3>
                 <div>
@@ -638,13 +443,11 @@
                     <button class="btn btn-info" onclick="addMultipleParticipants()">📋 Add Multiple</button>
                 </div>
             </div>
-            
             <div class="search-container">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="participantSearch" placeholder="Search participants by name..." oninput="filterParticipants()">
                 <button class="clear-search" id="clearSearch" onclick="clearSearch()">✕</button>
             </div>
-            
             <div class="quick-status-buttons">
                 <button class="btn btn-success btn-sm" onclick="setAllStatus('v')">✅ Mark All Paid</button>
                 <button class="btn btn-danger btn-sm" onclick="setAllStatus('x')">❌ Mark All Unpaid</button>
@@ -652,20 +455,16 @@
                 <button class="btn btn-secondary btn-sm" onclick="setAllStatus('')">❌ Clear All</button>
                 <button class="btn btn-info btn-sm" onclick="toggleSelectAll()">☑️ Select Visible</button>
             </div>
-            
             <div class="search-stats">
                 Showing <strong id="visibleCount">0</strong> of <strong id="totalCount">0</strong> participants
             </div>
-            
             <div id="participantList" class="participant-grid"></div>
-            
             <div class="btn-group">
                 <button class="btn btn-success" onclick="saveEvent()">💾 Save Event</button>
                 <button class="btn btn-warning" onclick="loadEvent()">📂 Load Event</button>
                 <button class="btn btn-danger" onclick="clearForm()">🗑️ Clear Form</button>
                 <button class="btn btn-info" onclick="syncToCloud()">☁️ Sync Now</button>
             </div>
-            
             <div id="saveMessage" class="message"></div>
         </div>
     </div>
@@ -686,7 +485,6 @@
     <!-- ==================== TAB 3: PARTICIPANTS ==================== -->
     <div id="participants" class="tab-content">
         <h2>👥 Participant Summary</h2>
-        <!-- Filter UI -->
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; align-items: center;">
             <input type="text" id="participantSummarySearch" placeholder="🔍 Filter by name..." style="flex: 1; padding: 8px 12px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 14px;">
             <div class="btn-group" style="margin: 0;">
@@ -713,8 +511,6 @@
     <!-- ==================== TAB 5: SETTINGS ==================== -->
     <div id="settings" class="tab-content">
         <h2>⚙️ Settings</h2>
-        
-        <!-- Cloud Sync Section -->
         <div class="summary-box" style="border-left-color: #27ae60;">
             <h3>☁️ Cloud Sync (Firebase)</h3>
             <div class="cloud-settings">
@@ -723,7 +519,6 @@
                     <span class="status-dot offline" id="cloudStatusDot"></span>
                     <span id="cloudStatusText">Not connected</span>
                 </div>
-                
                 <div style="margin: 10px 0;">
                     <label style="font-weight: 600; display: block; margin-bottom: 5px;">Firebase Configuration:</label>
                     <textarea id="firebaseConfigInput" placeholder='Paste your Firebase config here as JSON:
@@ -737,7 +532,6 @@
   "appId": "1:123456789:web:abcdef"
 }'></textarea>
                 </div>
-                
                 <div class="btn-group">
                     <button class="btn btn-success" onclick="configureFirebase()">🔑 Connect Firebase</button>
                     <button class="btn btn-primary" onclick="syncToCloud()">☁️ Sync Now</button>
@@ -745,12 +539,9 @@
                     <button class="btn btn-danger" onclick="clearCloudData()">🗑️ Clear Cloud Data</button>
                     <button class="btn btn-secondary" onclick="disconnectFirebase()">🔌 Disconnect</button>
                 </div>
-                
                 <div id="cloudMessage" class="message" style="margin-top: 10px;"></div>
             </div>
         </div>
-        
-        <!-- Shuttlecock Management -->
         <div class="summary-box">
             <h3>🏸 Shuttlecock Types</h3>
             <p style="color: #7f8c8d; margin-bottom: 10px;">Manage different shuttlecock types and their prices per tube.</p>
@@ -759,8 +550,6 @@
                 <button class="btn btn-primary" onclick="showAddShuttleModal()">➕ Add Shuttle Type</button>
             </div>
         </div>
-        
-        <!-- Participant Management -->
         <div class="summary-box">
             <h3>👥 Manage Participants</h3>
             <div id="settingsParticipantList"></div>
@@ -769,8 +558,6 @@
                 <button class="btn btn-danger" onclick="resetParticipants()">🔄 Reset to Default</button>
             </div>
         </div>
-        
-        <!-- Data Management -->
         <div class="summary-box">
             <h3>💾 Data Management</h3>
             <div class="btn-group">
@@ -782,8 +569,6 @@
                 Data is stored locally and synced to the cloud when connected.
             </p>
         </div>
-        
-        <!-- Statistics -->
         <div class="summary-box">
             <h3>📊 Statistics</h3>
             <div id="settingsStats"></div>
@@ -791,7 +576,7 @@
     </div>
 </div>
 
-<!-- ==================== MODAL: Add Shuttle ==================== -->
+<!-- MODAL: Add Shuttle -->
 <div id="shuttleModal" class="modal-overlay">
     <div class="modal">
         <h3>🏸 Add Shuttlecock Type</h3>
@@ -821,16 +606,14 @@ let firebaseDb = null;
 let isFirebaseConnected = false;
 let syncInProgress = false;
 
-// Default shuttle types
 const DEFAULT_SHUTTLE_TYPES = [
     { id: 'shuttle_1', name: 'RSL Ultimate', pricePerTube: 190 },
     { id: 'shuttle_2', name: 'Settled Shuttlecock', pricePerTube: 230 },
     { id: 'shuttle_3', name: 'Other', pricePerTube: 215 }
 ];
 
-// Default participants
 const DEFAULT_PARTICIPANTS = [
-    'Bonnie', 'Donald', 'Matthias', 'Marco L', 'Frankie', 
+    'Bonnie', 'Donald', 'Matthias', 'Marco L', 'Frankie',
     'Jack', 'Marco C', 'Dickson', 'Samuel Uncle', 'Andy Hin',
     'Frera', 'Hin Jai', 'Samuel', 'Pavis', 'Angelina',
     'Ivan', 'Samuel Bro', 'Bosco', 'Mak', 'Mattias GF',
@@ -847,25 +630,21 @@ let participants = [];
 let events = [];
 let shuttleTypes = [];
 let editingEventId = null;
-
-// Filter state for participant summary
 let participantFilterType = 'all';
 let participantSearchTerm = '';
 
 function getCategory(name) {
     const categories = {
-        'Bonnie': 'B', 'Donald': 'B', 'Frankie': 'B', 'Hin Jai': 'B',
-        'Samuel': 'B', 'Angelina': 'B', 'Bosco': 'B', 'Mak': 'B',
-        'Colin': 'B', 'Chi': 'B', 'Vicky': 'B', 'Claudia': 'B',
-        'Matthias': 'M', 'Marco L': 'M', 'Jack': 'M', 'Marco C': 'M',
-        'Dickson': 'M', 'Mattias GF': 'M', 'Giselle': 'M'
+        'Bonnie':'B','Donald':'B','Frankie':'B','Hin Jai':'B',
+        'Samuel':'B','Angelina':'B','Bosco':'B','Mak':'B',
+        'Colin':'B','Chi':'B','Vicky':'B','Claudia':'B',
+        'Matthias':'M','Marco L':'M','Jack':'M','Marco C':'M',
+        'Dickson':'M','Mattias GF':'M','Giselle':'M'
     };
     return categories[name] || '';
 }
 
-function generateId() {
-    return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-}
+function generateId() { return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
 
 function getDeviceId() {
     let id = localStorage.getItem('deviceId');
@@ -921,60 +700,37 @@ function loadFirebaseConfig() {
             document.getElementById('firebaseConfigInput').value = JSON.stringify(config, null, 2);
             return config;
         }
-    } catch (e) {
-        console.error('Error loading Firebase config:', e);
-    }
+    } catch (e) { console.error('Error loading Firebase config:', e); }
     return null;
 }
 
-function saveFirebaseConfig(config) {
-    localStorage.setItem('firebaseConfig', JSON.stringify(config));
-}
+function saveFirebaseConfig(config) { localStorage.setItem('firebaseConfig', JSON.stringify(config)); }
 
 function configureFirebase() {
     const input = document.getElementById('firebaseConfigInput');
     let config;
-    
-    try {
-        config = JSON.parse(input.value);
-    } catch (e) {
+    try { config = JSON.parse(input.value); } catch (e) {
         showCloudMessage('Invalid JSON format. Please check your config.', 'error');
         return;
     }
-    
-    // Validate required fields
-    const required = ['apiKey', 'authDomain', 'databaseURL', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+    const required = ['apiKey','authDomain','databaseURL','projectId','storageBucket','messagingSenderId','appId'];
     const missing = required.filter(field => !config[field]);
-    
     if (missing.length > 0) {
         showCloudMessage('Missing required fields: ' + missing.join(', '), 'error');
         return;
     }
-    
     try {
-        // Initialize Firebase
-        if (firebaseApp) {
-            try { firebaseApp.delete(); } catch (e) {}
-        }
-        
+        if (firebaseApp) { try { firebaseApp.delete(); } catch(e) {} }
         firebaseApp = firebase.initializeApp(config);
         firebaseDb = firebase.database();
         isFirebaseConnected = true;
-        
         saveFirebaseConfig(config);
         updateSyncStatus('synced', 'Connected ☁️');
         showCloudMessage('✅ Firebase connected successfully!', 'success');
-        
-        // Test connection
         firebaseDb.ref('.info/connected').on('value', (snap) => {
-            if (snap.val() === true) {
-                updateSyncStatus('synced', 'Online ☁️');
-            } else {
-                updateSyncStatus('offline', 'Offline 📡');
-            }
+            if (snap.val() === true) updateSyncStatus('synced', 'Online ☁️');
+            else updateSyncStatus('offline', 'Offline 📡');
         });
-        
-        // Listen for real-time updates
         firebaseDb.ref('badmintonData').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data && data._lastUpdatedBy && data._lastUpdatedBy !== getDeviceId()) {
@@ -982,10 +738,7 @@ function configureFirebase() {
                 showCloudMessage('☁️ Synced from cloud!', 'success');
             }
         });
-        
-        // Load initial data
         loadFromCloud();
-        
     } catch (e) {
         showCloudMessage('Firebase error: ' + e.message, 'error');
         updateSyncStatus('error', 'Error ⚠️');
@@ -994,12 +747,8 @@ function configureFirebase() {
 }
 
 function disconnectFirebase() {
-    if (firebaseApp) {
-        try { firebaseApp.delete(); } catch (e) {}
-    }
-    firebaseApp = null;
-    firebaseDb = null;
-    isFirebaseConnected = false;
+    if (firebaseApp) { try { firebaseApp.delete(); } catch(e) {} }
+    firebaseApp = null; firebaseDb = null; isFirebaseConnected = false;
     updateSyncStatus('offline', 'Offline 📡');
     localStorage.removeItem('firebaseConfig');
     document.getElementById('firebaseConfigInput').value = '';
@@ -1008,19 +757,11 @@ function disconnectFirebase() {
 
 function updateSyncStatus(status, text) {
     const el = document.getElementById('syncStatus');
-    if (el) {
-        el.className = 'sync-status ' + status;
-        el.textContent = text;
-    }
-    
+    if (el) { el.className = 'sync-status ' + status; el.textContent = text; }
     const dot = document.getElementById('cloudStatusDot');
     const statusText = document.getElementById('cloudStatusText');
-    if (dot) {
-        dot.className = 'status-dot ' + status;
-    }
-    if (statusText) {
-        statusText.textContent = text;
-    }
+    if (dot) dot.className = 'status-dot ' + status;
+    if (statusText) statusText.textContent = text;
 }
 
 function showCloudMessage(message, type) {
@@ -1029,42 +770,17 @@ function showCloudMessage(message, type) {
         el.className = 'message ' + type;
         el.textContent = message;
         el.style.display = 'block';
-        setTimeout(() => {
-            el.style.display = 'none';
-            el.className = 'message';
-        }, 5000);
+        setTimeout(() => { el.style.display = 'none'; el.className = 'message'; }, 5000);
     }
 }
 
 function importCloudData(data) {
     if (!data) return;
-    
-    let changed = false;
-    let message = '';
-    
-    if (data.participants && data.participants.length > 0) {
-        participants = data.participants;
-        changed = true;
-        message += '👥 Participants updated. ';
-    }
-    
-    if (data.events) {
-        events = data.events;
-        changed = true;
-        message += '📊 Events updated. ';
-    }
-    
-    if (data.shuttleTypes && data.shuttleTypes.length > 0) {
-        shuttleTypes = data.shuttleTypes;
-        changed = true;
-        message += '🏸 Shuttle types updated.';
-    }
-    
-    if (changed) {
-        saveData();
-        refreshAllUI();
-        showMessage('saveMessage', '☁️ ' + message, 'success');
-    }
+    let changed = false, msg = '';
+    if (data.participants) { participants = data.participants; changed = true; msg += '👥 Participants updated. '; }
+    if (data.events) { events = data.events; changed = true; msg += '📊 Events updated. '; }
+    if (data.shuttleTypes) { shuttleTypes = data.shuttleTypes; changed = true; msg += '🏸 Shuttle types updated.'; }
+    if (changed) { saveData(); refreshAllUI(); showMessage('saveMessage', '☁️ ' + msg, 'success'); }
 }
 
 function syncToCloud() {
@@ -1072,16 +788,10 @@ function syncToCloud() {
         showCloudMessage('Please connect to Firebase first!', 'error');
         return;
     }
-    
-    if (syncInProgress) {
-        showCloudMessage('Sync already in progress...', 'info');
-        return;
-    }
-    
+    if (syncInProgress) { showCloudMessage('Sync already in progress...', 'info'); return; }
     syncInProgress = true;
     updateSyncStatus('syncing', 'Syncing... 🔄');
     showCloudMessage('☁️ Syncing data to cloud...', 'info');
-    
     const data = {
         participants: participants,
         events: events,
@@ -1089,18 +799,11 @@ function syncToCloud() {
         _lastUpdatedBy: getDeviceId(),
         _updatedAt: new Date().toISOString()
     };
-    
     firebaseDb.ref('badmintonData').set(data)
-        .then(() => {
-            syncInProgress = false;
-            updateSyncStatus('synced', 'Synced ✓');
-            showCloudMessage('✅ Data synced to cloud successfully!', 'success');
-        })
-        .catch((error) => {
-            syncInProgress = false;
-            updateSyncStatus('error', 'Sync failed ⚠️');
-            showCloudMessage('❌ Sync failed: ' + error.message, 'error');
-        });
+        .then(() => { syncInProgress = false; updateSyncStatus('synced', 'Synced ✓');
+            showCloudMessage('✅ Data synced to cloud successfully!', 'success'); })
+        .catch((error) => { syncInProgress = false; updateSyncStatus('error', 'Sync failed ⚠️');
+            showCloudMessage('❌ Sync failed: ' + error.message, 'error'); });
 }
 
 function loadFromCloud() {
@@ -1108,26 +811,18 @@ function loadFromCloud() {
         showCloudMessage('Please connect to Firebase first!', 'error');
         return;
     }
-    
     updateSyncStatus('syncing', 'Loading... 🔄');
     showCloudMessage('📥 Loading data from cloud...', 'info');
-    
     firebaseDb.ref('badmintonData').once('value')
         .then((snapshot) => {
             const data = snapshot.val();
-            if (data) {
-                importCloudData(data);
-                updateSyncStatus('synced', 'Loaded ✓');
-                showCloudMessage('✅ Data loaded from cloud successfully!', 'success');
-            } else {
-                updateSyncStatus('synced', 'No data in cloud');
-                showCloudMessage('ℹ️ No data found in cloud.', 'info');
-            }
+            if (data) { importCloudData(data); updateSyncStatus('synced', 'Loaded ✓');
+                showCloudMessage('✅ Data loaded from cloud successfully!', 'success'); }
+            else { updateSyncStatus('synced', 'No data in cloud');
+                showCloudMessage('ℹ️ No data found in cloud.', 'info'); }
         })
-        .catch((error) => {
-            updateSyncStatus('error', 'Load failed ⚠️');
-            showCloudMessage('❌ Load failed: ' + error.message, 'error');
-        });
+        .catch((error) => { updateSyncStatus('error', 'Load failed ⚠️');
+            showCloudMessage('❌ Load failed: ' + error.message, 'error'); });
 }
 
 function clearCloudData() {
@@ -1135,18 +830,12 @@ function clearCloudData() {
         showCloudMessage('Please connect to Firebase first!', 'error');
         return;
     }
-    
     if (!confirm('⚠️ Delete ALL data from the cloud? This will affect all devices!')) return;
     if (!confirm('Are you absolutely sure?')) return;
-    
     firebaseDb.ref('badmintonData').remove()
-        .then(() => {
-            updateSyncStatus('synced', 'Cleared ✓');
-            showCloudMessage('🗑️ Cloud data cleared!', 'info');
-        })
-        .catch((error) => {
-            showCloudMessage('❌ Failed to clear: ' + error.message, 'error');
-        });
+        .then(() => { updateSyncStatus('synced', 'Cleared ✓');
+            showCloudMessage('🗑️ Cloud data cleared!', 'info'); })
+        .catch((error) => { showCloudMessage('❌ Failed to clear: ' + error.message, 'error'); });
 }
 
 // ============================================================
@@ -1159,10 +848,7 @@ function showMessage(elementId, message, type = 'success') {
     el.className = 'message ' + type;
     el.textContent = message;
     el.style.display = 'block';
-    setTimeout(() => { 
-        el.style.display = 'none';
-        el.className = 'message';
-    }, 4000);
+    setTimeout(() => { el.style.display = 'none'; el.className = 'message'; }, 4000);
 }
 
 function formatDate(dateStr) {
@@ -1171,9 +857,7 @@ function formatDate(dateStr) {
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-function getToday() {
-    return new Date().toISOString().split('T')[0];
-}
+function getToday() { return new Date().toISOString().split('T')[0]; }
 
 function escapeHtml(text) {
     const div = document.createElement('div');
@@ -1199,7 +883,6 @@ function showTab(tabName) {
     document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
     document.getElementById(tabName).classList.add('active');
     document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
-    
     if (tabName === 'events') renderEvents();
     if (tabName === 'participants') renderParticipantSummary(participantFilterType, participantSearchTerm);
     if (tabName === 'earnings') renderEarnings();
@@ -1227,11 +910,8 @@ function updateShuttleCost() {
     const select = document.getElementById('shuttleType');
     const display = document.getElementById('shuttleCostDisplay');
     if (!select || !display) return;
-    const selectedId = select.value;
-    const shuttle = shuttleTypes.find(s => s.id === selectedId);
-    if (shuttle) {
-        display.textContent = (shuttle.pricePerTube / 12).toFixed(2);
-    }
+    const shuttle = shuttleTypes.find(s => s.id === select.value);
+    if (shuttle) display.textContent = (shuttle.pricePerTube / 12).toFixed(2);
 }
 
 function renderShuttleList() {
@@ -1263,34 +943,18 @@ function showAddShuttleModal() {
     document.getElementById('shuttleModalMessage').style.display = 'none';
 }
 
-function closeShuttleModal() {
-    document.getElementById('shuttleModal').classList.remove('active');
-}
+function closeShuttleModal() { document.getElementById('shuttleModal').classList.remove('active'); }
 
 function addShuttleType() {
     const name = document.getElementById('newShuttleName').value.trim();
     const price = parseFloat(document.getElementById('newShuttlePrice').value);
-    
-    if (!name) {
-        showMessage('shuttleModalMessage', 'Please enter a shuttle name.', 'error');
-        return;
-    }
-    if (!price || price <= 0) {
-        showMessage('shuttleModalMessage', 'Please enter a valid price.', 'error');
-        return;
-    }
-    
+    if (!name) { showMessage('shuttleModalMessage', 'Please enter a shuttle name.', 'error'); return; }
+    if (!price || price <= 0) { showMessage('shuttleModalMessage', 'Please enter a valid price.', 'error'); return; }
     if (shuttleTypes.some(s => s.name.toLowerCase() === name.toLowerCase())) {
         showMessage('shuttleModalMessage', 'A shuttle with this name already exists.', 'error');
         return;
     }
-    
-    shuttleTypes.push({
-        id: generateId(),
-        name: name,
-        pricePerTube: price
-    });
-    
+    shuttleTypes.push({ id: generateId(), name: name, pricePerTube: price });
     saveData();
     renderShuttleSelect();
     renderShuttleList();
@@ -1301,19 +965,13 @@ function addShuttleType() {
 function deleteShuttleType(id) {
     const shuttle = shuttleTypes.find(s => s.id === id);
     if (!shuttle) return;
-    const usedInEvents = events.some(e => e.shuttleTypeId === id);
-    if (usedInEvents) {
-        if (!confirm(`"${shuttle.name}" is used in existing events. Delete anyway?`)) return;
-    }
+    if (events.some(e => e.shuttleTypeId === id) && !confirm(`"${shuttle.name}" is used in existing events. Delete anyway?`)) return;
     if (!confirm(`Delete "${shuttle.name}"?`)) return;
-    
     shuttleTypes = shuttleTypes.filter(s => s.id !== id);
     saveData();
     renderShuttleSelect();
     renderShuttleList();
-    if (shuttleTypes.length > 0) {
-        document.getElementById('shuttleType').value = shuttleTypes[0].id;
-    }
+    if (shuttleTypes.length > 0) document.getElementById('shuttleType').value = shuttleTypes[0].id;
     updateShuttleCost();
 }
 
@@ -1325,18 +983,14 @@ function renderParticipantList(filterText = '') {
     const container = document.getElementById('participantList');
     if (!container) return;
     container.innerHTML = '';
-    
     let visibleCount = 0;
     const searchTerm = filterText.toLowerCase().trim();
-    
     participants.forEach((name, index) => {
         const nameLower = name.toLowerCase();
         const matches = !searchTerm || nameLower.includes(searchTerm);
-        
         const div = document.createElement('div');
         div.className = 'participant-item' + (matches ? '' : ' hidden');
         div.id = `participant_${index}`;
-        
         let displayName = escapeHtml(name);
         if (searchTerm && nameLower.includes(searchTerm)) {
             const idx = nameLower.indexOf(searchTerm);
@@ -1345,7 +999,6 @@ function renderParticipantList(filterText = '') {
             const after = escapeHtml(name.substring(idx + searchTerm.length));
             displayName = before + `<span class="match-highlight">${match}</span>` + after;
         }
-        
         div.innerHTML = `
             <span class="name">${displayName}</span>
             <select id="status_${index}" onchange="updateStatusBadge(${index})">
@@ -1358,19 +1011,14 @@ function renderParticipantList(filterText = '') {
             <button class="remove-btn" onclick="removeParticipant(${index})" title="Remove participant">✕</button>
         `;
         container.appendChild(div);
-        
         if (matches) visibleCount++;
     });
-    
     document.getElementById('visibleCount').textContent = visibleCount;
     document.getElementById('totalCount').textContent = participants.length;
     document.getElementById('clearSearch').classList.toggle('visible', searchTerm.length > 0);
 }
 
-function filterParticipants() {
-    const searchInput = document.getElementById('participantSearch');
-    renderParticipantList(searchInput.value);
-}
+function filterParticipants() { renderParticipantList(document.getElementById('participantSearch').value); }
 
 function clearSearch() {
     document.getElementById('participantSearch').value = '';
@@ -1382,27 +1030,15 @@ function updateStatusBadge(index) {
     const select = document.getElementById(`status_${index}`);
     const badge = document.getElementById(`badge_${index}`);
     if (!select || !badge) return;
-    
     const status = select.value;
-    const statusText = {
-        'v': '✅ Paid',
-        'x': '❌ Unpaid',
-        'o': '🏸 Venue'
-    }[status] || '';
-    
-    const statusClass = {
-        'v': 'paid',
-        'x': 'unpaid',
-        'o': 'venue'
-    }[status] || '';
-    
+    const statusText = { 'v':'✅ Paid', 'x':'❌ Unpaid', 'o':'🏸 Venue' }[status] || '';
+    const statusClass = { 'v':'paid', 'x':'unpaid', 'o':'venue' }[status] || '';
     badge.textContent = statusText;
     badge.className = 'status-badge ' + statusClass;
 }
 
 function setAllStatus(status) {
-    const selects = document.querySelectorAll('#participantList select');
-    selects.forEach((select, index) => {
+    document.querySelectorAll('#participantList select').forEach((select, index) => {
         select.value = status;
         updateStatusBadge(index);
     });
@@ -1411,15 +1047,10 @@ function setAllStatus(status) {
 function toggleSelectAll() {
     const visibleItems = document.querySelectorAll('#participantList .participant-item:not(.hidden) select');
     const allSelected = Array.from(visibleItems).every(s => s.value !== '');
-    
-    visibleItems.forEach((select, index) => {
+    visibleItems.forEach((select) => {
         const item = select.closest('.participant-item');
         const globalIndex = Array.from(document.querySelectorAll('#participantList .participant-item')).indexOf(item);
-        if (allSelected) {
-            select.value = '';
-        } else {
-            select.value = 'v';
-        }
+        select.value = allSelected ? '' : 'v';
         updateStatusBadge(globalIndex);
     });
 }
@@ -1427,15 +1058,11 @@ function toggleSelectAll() {
 function addParticipant() {
     const name = prompt('Enter participant name:');
     if (name && name.trim()) {
-        if (participants.includes(name.trim())) {
-            alert('Participant already exists!');
-            return;
-        }
+        if (participants.includes(name.trim())) { alert('Participant already exists!'); return; }
         participants.push(name.trim());
         saveData();
         renderParticipantList(document.getElementById('participantSearch').value);
         renderSettings();
-        // Auto-sync to cloud if connected
         if (isFirebaseConnected) syncToCloud();
     }
 }
@@ -1446,10 +1073,7 @@ function addMultipleParticipants() {
         const list = names.split('\n').map(s => s.trim()).filter(s => s);
         let added = 0;
         list.forEach(name => {
-            if (!participants.includes(name)) {
-                participants.push(name);
-                added++;
-            }
+            if (!participants.includes(name)) { participants.push(name); added++; }
         });
         if (added > 0) {
             saveData();
@@ -1457,9 +1081,7 @@ function addMultipleParticipants() {
             renderSettings();
             alert(`Added ${added} new participants!`);
             if (isFirebaseConnected) syncToCloud();
-        } else {
-            alert('No new participants added.');
-        }
+        } else { alert('No new participants added.'); }
     }
 }
 
@@ -1498,35 +1120,39 @@ function saveEvent() {
         showMessage('saveMessage', 'Please select a date!', 'error');
         return;
     }
-    
+
     const shuttleTypeId = document.getElementById('shuttleType').value;
     const shuttle = shuttleTypes.find(s => s.id === shuttleTypeId);
     if (!shuttle) {
         showMessage('saveMessage', 'Please select a shuttle type!', 'error');
         return;
     }
-    
+
     const shuttlesUsed = parseInt(document.getElementById('shuttlesUsed').value) || 0;
-    const venueCost = parseFloat(document.getElementById('venueCost').value) || 17;
+
+    // ✅ FIX: Allow venueCost to be 0
+    let venueCost = parseFloat(document.getElementById('venueCost').value);
+    if (isNaN(venueCost) || venueCost < 0) venueCost = 0;
+
     const taxiCost = parseFloat(document.getElementById('taxiCost').value) || 0;
     const actualFee = parseFloat(document.getElementById('actualFee').value) || 0;
     const taxiExcluded = document.getElementById('taxiExcluded').value.split(',').map(s => s.trim()).filter(s => s);
-    
+
     const selectedParticipants = getSelectedParticipants();
     if (selectedParticipants.length === 0) {
         showMessage('saveMessage', 'Please select at least one participant!', 'error');
         return;
     }
-    
+
     const shuttleCostPerShuttle = shuttle.pricePerTube / 12;
     const totalShuttleCost = shuttlesUsed * shuttleCostPerShuttle;
     const totalVenueCost = selectedParticipants.length * venueCost;
     const totalCost = totalShuttleCost + totalVenueCost;
     const costPerHead = selectedParticipants.length > 0 ? totalCost / selectedParticipants.length : 0;
-    
+
     const taxiParticipants = selectedParticipants.filter(p => !taxiExcluded.includes(p.name));
     const taxiPerHead = taxiParticipants.length > 0 && taxiCost > 0 ? taxiCost / taxiParticipants.length : 0;
-    
+
     const event = {
         id: date,
         date: date,
@@ -1535,7 +1161,7 @@ function saveEvent() {
         shuttlePrice: shuttle.pricePerTube,
         shuttlesUsed: shuttlesUsed,
         shuttleCostPerShuttle: shuttleCostPerShuttle,
-        venueCost: venueCost,
+        venueCost: venueCost, // ✅ Always store the actual venue cost (including 0)
         taxiCost: taxiCost,
         actualFee: actualFee,
         taxiExcluded: taxiExcluded,
@@ -1546,7 +1172,7 @@ function saveEvent() {
         totalWithTaxi: totalCost + taxiCost,
         totalParticipants: selectedParticipants.length
     };
-    
+
     const existingIndex = events.findIndex(e => e.id === date);
     if (existingIndex >= 0) {
         if (!confirm(`Event on ${date} already exists. Overwrite?`)) return;
@@ -1554,13 +1180,12 @@ function saveEvent() {
     } else {
         events.push(event);
     }
-    
+
     saveData();
     showMessage('saveMessage', `✅ Event on ${date} saved successfully!`, 'success');
     editingEventId = null;
     renderEvents();
-    
-    // Auto-sync to cloud if connected
+
     if (isFirebaseConnected) {
         setTimeout(() => syncToCloud(), 500);
     }
@@ -1570,20 +1195,17 @@ function loadEvent() {
     const date = prompt('Enter date to load (YYYY-MM-DD):');
     if (!date) return;
     const event = events.find(e => e.id === date);
-    if (!event) {
-        alert('Event not found!');
-        return;
-    }
+    if (!event) { alert('Event not found!'); return; }
     editEvent(date);
 }
 
 function editEvent(date) {
     const event = events.find(e => e.id === date);
     if (!event) return;
-    
+
     editingEventId = date;
     document.getElementById('eventDate').value = event.date;
-    
+
     const select = document.getElementById('shuttleType');
     if (event.shuttleTypeId) {
         select.value = event.shuttleTypeId;
@@ -1592,13 +1214,14 @@ function editEvent(date) {
         if (legacyShuttle) select.value = legacyShuttle.id;
     }
     updateShuttleCost();
-    
+
     document.getElementById('shuttlesUsed').value = event.shuttlesUsed;
-    document.getElementById('venueCost').value = event.venueCost;
+    // ✅ Restore venueCost (allow 0)
+    document.getElementById('venueCost').value = event.venueCost !== undefined ? event.venueCost : 17;
     document.getElementById('taxiCost').value = event.taxiCost || 0;
     document.getElementById('actualFee').value = event.actualFee || 0;
     document.getElementById('taxiExcluded').value = event.taxiExcluded ? event.taxiExcluded.join(', ') : '';
-    
+
     renderParticipantList('');
     event.participants.forEach(p => {
         const index = participants.indexOf(p.name);
@@ -1610,7 +1233,7 @@ function editEvent(date) {
             }
         }
     });
-    
+
     showTab('input');
     document.getElementById('saveMessage').className = 'message';
     document.getElementById('saveMessage').style.display = 'none';
@@ -1631,6 +1254,7 @@ function clearForm() {
     if (confirm('Clear the form? Unsaved data will be lost.')) {
         document.getElementById('eventDate').value = getToday();
         document.getElementById('shuttlesUsed').value = 14;
+        document.getElementById('venueCost').value = 17;
         document.getElementById('taxiCost').value = 0;
         document.getElementById('actualFee').value = 50;
         document.getElementById('taxiExcluded').value = '';
@@ -1649,60 +1273,20 @@ function clearForm() {
 function renderEvents() {
     const container = document.getElementById('eventsTableContainer');
     if (!container) return;
-    
     if (events.length === 0) {
         container.innerHTML = '<p style="text-align: center; padding: 40px; color: #7f8c8d;">No events recorded yet. Start by adding an event!</p>';
         document.getElementById('eventsSummary').innerHTML = '';
         return;
     }
-    
-    const sortedEvents = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    let html = `
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Participants</th>
-                        <th>Paid</th>
-                        <th>Shuttle</th>
-                        <th>Shuttles</th>
-                        <th>Cost/Head</th>
-                        <th>Taxi/Head</th>
-                        <th>Total Cost</th>
-                        <th>Actual Fee</th>
-                        <th class="no-print">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
-    
-    sortedEvents.forEach(event => {
+    const sorted = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
+    let html = `<div class="table-wrapper"><table><thead><tr><th>Date</th><th>Participants</th><th>Paid</th><th>Shuttle</th><th>Shuttles</th><th>Cost/Head</th><th>Taxi/Head</th><th>Total Cost</th><th>Actual Fee</th><th class="no-print">Actions</th></tr></thead><tbody>`;
+    sorted.forEach(event => {
         const paidCount = event.participants.filter(p => p.status === 'v').length;
-        const totalCount = event.participants.length;
+        const total = event.participants.length;
         const totalCost = event.totalCost + (event.taxiCost || 0);
         const fee = event.actualFee || 0;
-        
-        html += `
-            <tr>
-                <td><strong>${formatDate(event.date)}</strong></td>
-                <td>${totalCount}</td>
-                <td><span class="badge badge-paid">${paidCount}</span></td>
-                <td><span class="badge badge-info">${escapeHtml(event.shuttleName || 'Unknown')}</span></td>
-                <td>${event.shuttlesUsed}</td>
-                <td>$${event.costPerHead ? event.costPerHead.toFixed(2) : '0.00'}</td>
-                <td>$${event.taxiPerHead ? event.taxiPerHead.toFixed(2) : '0.00'}</td>
-                <td>$${totalCost.toFixed(2)}</td>
-                <td>$${fee.toFixed(2)}</td>
-                <td class="no-print">
-                    <button class="btn btn-warning btn-sm" onclick="editEvent('${event.id}')">✏️</button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteEvent('${event.id}')">🗑️</button>
-                </td>
-            </tr>
-        `;
+        html += `<tr><td><strong>${formatDate(event.date)}</strong></td><td>${total}</td><td><span class="badge badge-paid">${paidCount}</span></td><td><span class="badge badge-info">${escapeHtml(event.shuttleName || 'Unknown')}</span></td><td>${event.shuttlesUsed}</td><td>$${event.costPerHead ? event.costPerHead.toFixed(2) : '0.00'}</td><td>$${event.taxiPerHead ? event.taxiPerHead.toFixed(2) : '0.00'}</td><td>$${totalCost.toFixed(2)}</td><td>$${fee.toFixed(2)}</td><td class="no-print"><button class="btn btn-warning btn-sm" onclick="editEvent('${event.id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="deleteEvent('${event.id}')">🗑️</button></td></tr>`;
     });
-    
     html += '</tbody></table></div>';
     container.innerHTML = html;
     updateEventsSummary();
@@ -1711,79 +1295,40 @@ function renderEvents() {
 function updateEventsSummary() {
     const container = document.getElementById('eventsSummary');
     if (!container) return;
-    
-    if (events.length === 0) {
-        container.innerHTML = '';
-        return;
-    }
-    
+    if (events.length === 0) { container.innerHTML = ''; return; }
     const totalEvents = events.length;
-    const totalParticipants = events.reduce((sum, e) => sum + e.participants.length, 0);
-    const totalCost = events.reduce((sum, e) => sum + e.totalCost + (e.taxiCost || 0), 0);
-    const totalCollected = events.reduce((sum, e) => {
+    const totalParticipants = events.reduce((s, e) => s + e.participants.length, 0);
+    const totalCost = events.reduce((s, e) => s + e.totalCost + (e.taxiCost || 0), 0);
+    const totalCollected = events.reduce((s, e) => {
         const paid = e.participants.filter(p => p.status === 'v').length;
-        return sum + (paid * (e.actualFee || 0));
+        return s + (paid * (e.actualFee || 0));
     }, 0);
-    const totalUnpaid = events.reduce((sum, e) => {
-        return sum + e.participants.filter(p => p.status === 'x' || p.status === 'o').length;
-    }, 0);
-    
+    const totalUnpaid = events.reduce((s, e) => s + e.participants.filter(p => p.status === 'x' || p.status === 'o').length, 0);
     container.innerHTML = `
-        <div class="summary-box">
-            <h3>📈 Summary</h3>
-            <div class="summary-grid">
-                <div class="summary-item">
-                    <div class="number">${totalEvents}</div>
-                    <div class="label">Total Events</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number">${totalParticipants}</div>
-                    <div class="label">Total Sessions</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number">${totalUnpaid}</div>
-                    <div class="label">Unpaid Sessions</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number">$${totalCost.toFixed(2)}</div>
-                    <div class="label">Total Cost</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number">$${totalCollected.toFixed(2)}</div>
-                    <div class="label">Total Collected</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number ${totalCollected - totalCost >= 0 ? 'positive' : 'negative'}">
-                        $${(totalCollected - totalCost).toFixed(2)}
-                    </div>
-                    <div class="label">Net</div>
-                </div>
-            </div>
-        </div>
+        <div class="summary-box"><h3>📈 Summary</h3><div class="summary-grid">
+            <div class="summary-item"><div class="number">${totalEvents}</div><div class="label">Total Events</div></div>
+            <div class="summary-item"><div class="number">${totalParticipants}</div><div class="label">Total Sessions</div></div>
+            <div class="summary-item"><div class="number">${totalUnpaid}</div><div class="label">Unpaid Sessions</div></div>
+            <div class="summary-item"><div class="number">$${totalCost.toFixed(2)}</div><div class="label">Total Cost</div></div>
+            <div class="summary-item"><div class="number">$${totalCollected.toFixed(2)}</div><div class="label">Total Collected</div></div>
+            <div class="summary-item"><div class="number ${totalCollected - totalCost >= 0 ? 'positive' : 'negative'}">$${(totalCollected - totalCost).toFixed(2)}</div><div class="label">Net</div></div>
+        </div></div>
     `;
 }
 
 // ============================================================
-// TAB 3: PARTICIPANTS – ENHANCED WITH EXPANDABLE DETAILS
+// TAB 3: PARTICIPANTS
 // ============================================================
 
 function renderParticipantSummary(filterType = participantFilterType, searchTerm = participantSearchTerm) {
     const container = document.getElementById('participantSummaryContainer');
     if (!container) return;
-    
-    // Build summary
+
     const summary = {};
     participants.forEach(name => {
-        summary[name] = {
-            attended: 0,
-            paid: 0,
-            unpaid: 0,
-            venueOnly: 0,
-            totalOwed: 0,
-            events: []
-        };
+        summary[name] = { attended: 0, paid: 0, unpaid: 0, venueOnly: 0, totalOwed: 0, events: [] };
     });
-    
+
     events.forEach(event => {
         event.participants.forEach(p => {
             if (summary[p.name]) {
@@ -1816,8 +1361,7 @@ function renderParticipantSummary(filterType = participantFilterType, searchTerm
             }
         });
     });
-    
-    // Apply filters
+
     const searchLower = searchTerm.toLowerCase().trim();
     const filteredNames = Object.keys(summary).filter(name => {
         if (searchLower && !name.toLowerCase().includes(searchLower)) return false;
@@ -1827,58 +1371,34 @@ function renderParticipantSummary(filterType = participantFilterType, searchTerm
         if (filterType === 'owed' && s.totalOwed === 0) return false;
         return true;
     });
-    
+
     if (filteredNames.length === 0) {
         container.innerHTML = '<p style="text-align: center; padding: 40px; color: #7f8c8d;">No matching participants found.</p>';
         return;
     }
-    
-    let html = `
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:40px;"></th>
-                        <th>Name</th>
-                        <th>Attended</th>
-                        <th>✅ Paid</th>
-                        <th>❌ Unpaid</th>
-                        <th>🏸 Venue Only</th>
-                        <th>Total Owed</th>
-                        <th class="no-print">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
-    
+
+    let html = `<div class="table-wrapper"><table><thead><tr><th style="width:40px;"></th><th>Name</th><th>Attended</th><th>✅ Paid</th><th>❌ Unpaid</th><th>🏸 Venue Only</th><th>Total Owed</th><th class="no-print">Actions</th></tr></thead><tbody>`;
     filteredNames.sort().forEach(name => {
         const s = summary[name];
         const hasDebts = s.totalOwed > 0;
         const detailsId = 'details_' + name.replace(/\s/g, '_');
-        
+
         html += `
             <tr class="main-row" id="row_${detailsId}">
-                <td>
-                    ${hasDebts ? `<button class="toggle-details" onclick="toggleDetails('${detailsId}')" title="Show/hide details">▶</button>` : ''}
-                </td>
+                <td>${hasDebts ? `<button class="toggle-details" onclick="toggleDetails('${detailsId}')" title="Show/hide details">▶</button>` : ''}</td>
                 <td><strong>${escapeHtml(name)}</strong></td>
                 <td>${s.attended}</td>
                 <td><span class="badge badge-paid">${s.paid}</span></td>
                 <td><span class="badge badge-unpaid">${s.unpaid}</span></td>
                 <td><span class="badge badge-venue-only">${s.venueOnly}</span></td>
                 <td>$${s.totalOwed.toFixed(2)}</td>
-                <td class="no-print">
-                    ${hasDebts ? `<button class="btn btn-success btn-sm" onclick="markParticipantPaid('${name}')">✅</button>` : ''}
-                </td>
+                <td class="no-print">${hasDebts ? `<button class="btn btn-success btn-sm" onclick="markParticipantPaid('${name}')">✅</button>` : ''}</td>
             </tr>
             <tr class="details-row" id="${detailsId}">
-                <td colspan="8">
-                    ${hasDebts ? buildDebtDetailsTable(s.events) : ''}
-                </td>
+                <td colspan="8">${hasDebts ? buildDebtDetailsTable(s.events) : ''}</td>
             </tr>
         `;
     });
-    
     html += '</tbody></table></div>';
     container.innerHTML = html;
 }
@@ -1893,22 +1413,7 @@ function buildDebtDetailsTable(events) {
         total += ev.cost;
     });
     rows += `<tr class="total-row"><td colspan="3"><strong>Total Owed</strong></td><td><strong>$${total.toFixed(2)}</strong></td></tr>`;
-    
-    return `
-        <table class="sub-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Shuttle</th>
-                    <th>Status</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${rows}
-            </tbody>
-        </table>
-    `;
+    return `<table class="sub-table"><thead><tr><th>Date</th><th>Shuttle</th><th>Status</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function toggleDetails(rowId) {
@@ -1938,36 +1443,20 @@ function initParticipantSummaryFilter() {
     }
 }
 
-// Keep old popup function for backward compatibility (optional)
 function showParticipantDetails(name) {
-    let details = `<h3>📋 ${escapeHtml(name)}'s Attendance</h3>`;
-    details += `<table><thead><tr><th>Date</th><th>Shuttle</th><th>Status</th><th>Amount</th></tr></thead><tbody>`;
-    
+    let details = `<h3>📋 ${escapeHtml(name)}'s Attendance</h3><table><thead><tr><th>Date</th><th>Shuttle</th><th>Status</th><th>Amount</th></tr></thead><tbody>`;
     let total = 0;
     events.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(event => {
         const p = event.participants.find(p => p.name === name);
         if (p) {
-            let amount = 0;
-            let statusText = '';
-            if (p.status === 'v') {
-                statusText = '✅ Paid';
-                amount = event.actualFee || 0;
-            } else if (p.status === 'x') {
-                statusText = '❌ Unpaid';
-                amount = event.actualFee || event.costPerHead || 0;
-                total += amount;
-            } else if (p.status === 'o') {
-                statusText = '🏸 Venue Only';
-                amount = event.venueCost || 0;
-                total += amount;
-            }
+            let amount = 0, statusText = '';
+            if (p.status === 'v') { statusText = '✅ Paid'; amount = event.actualFee || 0; }
+            else if (p.status === 'x') { statusText = '❌ Unpaid'; amount = event.actualFee || event.costPerHead || 0; total += amount; }
+            else if (p.status === 'o') { statusText = '🏸 Venue Only'; amount = event.venueCost || 0; total += amount; }
             details += `<tr><td>${formatDate(event.date)}</td><td>${escapeHtml(event.shuttleName || 'N/A')}</td><td>${statusText}</td><td>$${amount.toFixed(2)}</td></tr>`;
         }
     });
-    
-    details += `<tr style="font-weight: bold; background: #ecf0f1;"><td colspan="3">Total Owed</td><td>$${total.toFixed(2)}</td></tr>`;
-    details += '</tbody></table>';
-    
+    details += `<tr style="font-weight:bold;background:#ecf0f1;"><td colspan="3">Total Owed</td><td>$${total.toFixed(2)}</td></tr></tbody></table>`;
     const win = window.open('', '_blank', 'width=600,height=500');
     win.document.write(`<style>body{font-family:Arial;padding:20px;}table{width:100%;border-collapse:collapse;}th,td{border:1px solid #ddd;padding:8px;text-align:left;}th{background:#2c3e50;color:white;}</style>${details}`);
     win.document.close();
@@ -1975,16 +1464,11 @@ function showParticipantDetails(name) {
 
 function markParticipantPaid(name) {
     if (!confirm(`Mark all events for ${name} as paid?`)) return;
-    
     let count = 0;
     events.forEach(event => {
         const p = event.participants.find(p => p.name === name);
-        if (p && (p.status === 'x' || p.status === 'o')) {
-            p.status = 'v';
-            count++;
-        }
+        if (p && (p.status === 'x' || p.status === 'o')) { p.status = 'v'; count++; }
     });
-    
     if (count > 0) {
         saveData();
         renderParticipantSummary(participantFilterType, participantSearchTerm);
@@ -1992,24 +1476,17 @@ function markParticipantPaid(name) {
         renderEarnings();
         if (isFirebaseConnected) syncToCloud();
         alert(`✅ ${name} marked as paid for ${count} event(s)!`);
-    } else {
-        alert(`${name} has no outstanding payments.`);
-    }
+    } else { alert(`${name} has no outstanding payments.`); }
 }
 
 function markAllPaid() {
     if (!confirm('Mark ALL participants as paid for ALL events? This cannot be undone easily.')) return;
-    
     let count = 0;
     events.forEach(event => {
         event.participants.forEach(p => {
-            if (p.status === 'x' || p.status === 'o') {
-                p.status = 'v';
-                count++;
-            }
+            if (p.status === 'x' || p.status === 'o') { p.status = 'v'; count++; }
         });
     });
-    
     if (count > 0) {
         saveData();
         renderParticipantSummary(participantFilterType, participantSearchTerm);
@@ -2017,9 +1494,7 @@ function markAllPaid() {
         renderEarnings();
         if (isFirebaseConnected) syncToCloud();
         alert(`✅ Marked ${count} unpaid sessions as paid!`);
-    } else {
-        alert('No unpaid sessions found.');
-    }
+    } else { alert('No unpaid sessions found.'); }
 }
 
 // ============================================================
@@ -2029,116 +1504,44 @@ function markAllPaid() {
 function renderEarnings() {
     const container = document.getElementById('earningsContainer');
     if (!container) return;
-    
     if (events.length === 0) {
         container.innerHTML = '<p style="text-align: center; padding: 40px; color: #7f8c8d;">No events to analyze earnings.</p>';
         return;
     }
-    
-    let totalCost = 0;
-    let totalCollected = 0;
-    let totalUnpaid = 0;
+    let totalCost = 0, totalCollected = 0, totalUnpaid = 0;
     const earningsByEvent = [];
-    
-    const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    sortedEvents.forEach(event => {
-        const allParticipants = event.participants;
-        const payingParticipants = allParticipants.filter(p => p.status === 'v');
-        const unpaidParticipants = allParticipants.filter(p => p.status === 'x' || p.status === 'o');
-        
+    const sorted = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
+    sorted.forEach(event => {
+        const all = event.participants;
+        const paying = all.filter(p => p.status === 'v');
+        const unpaid = all.filter(p => p.status === 'x' || p.status === 'o');
         const eventCost = event.totalCost + (event.taxiCost || 0);
-        const collected = payingParticipants.length * (event.actualFee || 0);
-        const unpaidAmount = unpaidParticipants.reduce((sum, p) => {
-            if (p.status === 'x') {
-                return sum + (event.actualFee || 0);
-            } else if (p.status === 'o') {
-                return sum + (event.venueCost || 0);
-            }
+        const collected = paying.length * (event.actualFee || 0);
+        const unpaidAmount = unpaid.reduce((sum, p) => {
+            if (p.status === 'x') return sum + (event.actualFee || 0);
+            if (p.status === 'o') return sum + (event.venueCost || 0);
             return sum;
         }, 0);
-        
         totalCost += eventCost;
         totalCollected += collected;
         totalUnpaid += unpaidAmount;
-        
         earningsByEvent.push({
-            date: event.date,
-            cost: eventCost,
-            collected: collected,
-            unpaid: unpaidAmount,
-            net: collected - eventCost,
-            participants: allParticipants.length,
-            paying: payingParticipants.length,
-            unpaidCount: unpaidParticipants.length,
-            fee: event.actualFee || 0,
-            shuttle: event.shuttleName || 'N/A'
+            date: event.date, cost: eventCost, collected, unpaid: unpaidAmount,
+            net: collected - eventCost, participants: all.length, paying: paying.length,
+            unpaidCount: unpaid.length, fee: event.actualFee || 0, shuttle: event.shuttleName || 'N/A'
         });
     });
-    
     let html = `
-        <div class="summary-box">
-            <h3>📊 Earnings Summary</h3>
-            <div class="summary-grid">
-                <div class="summary-item">
-                    <div class="number">$${totalCost.toFixed(2)}</div>
-                    <div class="label">Total Cost</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number">$${totalCollected.toFixed(2)}</div>
-                    <div class="label">Total Collected</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number">$${totalUnpaid.toFixed(2)}</div>
-                    <div class="label">Total Unpaid</div>
-                </div>
-                <div class="summary-item">
-                    <div class="number ${totalCollected - totalCost >= 0 ? 'positive' : 'negative'}">
-                        $${(totalCollected - totalCost).toFixed(2)}
-                    </div>
-                    <div class="label">Net</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Shuttle</th>
-                        <th>Total</th>
-                        <th>Paying</th>
-                        <th>Unpaid</th>
-                        <th>Fee/Person</th>
-                        <th>Total Cost</th>
-                        <th>Collected</th>
-                        <th>Unpaid Amount</th>
-                        <th>Net</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
-    
+        <div class="summary-box"><h3>📊 Earnings Summary</h3><div class="summary-grid">
+            <div class="summary-item"><div class="number">$${totalCost.toFixed(2)}</div><div class="label">Total Cost</div></div>
+            <div class="summary-item"><div class="number">$${totalCollected.toFixed(2)}</div><div class="label">Total Collected</div></div>
+            <div class="summary-item"><div class="number">$${totalUnpaid.toFixed(2)}</div><div class="label">Total Unpaid</div></div>
+            <div class="summary-item"><div class="number ${totalCollected - totalCost >= 0 ? 'positive' : 'negative'}">$${(totalCollected - totalCost).toFixed(2)}</div><div class="label">Net</div></div>
+        </div></div>
+        <div class="table-wrapper"><table><thead><tr><th>Date</th><th>Shuttle</th><th>Total</th><th>Paying</th><th>Unpaid</th><th>Fee/Person</th><th>Total Cost</th><th>Collected</th><th>Unpaid Amount</th><th>Net</th></tr></thead><tbody>`;
     earningsByEvent.forEach(e => {
-        html += `
-            <tr>
-                <td>${formatDate(e.date)}</td>
-                <td><span class="badge badge-info">${escapeHtml(e.shuttle)}</span></td>
-                <td>${e.participants}</td>
-                <td>${e.paying}</td>
-                <td>${e.unpaidCount}</td>
-                <td>$${e.fee.toFixed(2)}</td>
-                <td>$${e.cost.toFixed(2)}</td>
-                <td>$${e.collected.toFixed(2)}</td>
-                <td>$${e.unpaid.toFixed(2)}</td>
-                <td style="color: ${e.net >= 0 ? '#27ae60' : '#e74c3c'}; font-weight: bold;">
-                    $${e.net.toFixed(2)}
-                </td>
-            </tr>
-        `;
+        html += `<tr><td>${formatDate(e.date)}</td><td><span class="badge badge-info">${escapeHtml(e.shuttle)}</span></td><td>${e.participants}</td><td>${e.paying}</td><td>${e.unpaidCount}</td><td>$${e.fee.toFixed(2)}</td><td>$${e.cost.toFixed(2)}</td><td>$${e.collected.toFixed(2)}</td><td>$${e.unpaid.toFixed(2)}</td><td style="color: ${e.net >= 0 ? '#27ae60' : '#e74c3c'}; font-weight: bold;">$${e.net.toFixed(2)}</td></tr>`;
     });
-    
     html += '</tbody></table></div>';
     container.innerHTML = html;
 }
@@ -2151,20 +1554,14 @@ function renderSettings() {
     renderShuttleList();
     renderSettingsParticipants();
     renderSettingsStats();
-    
-    // Load saved Firebase config
     const savedConfig = loadFirebaseConfig();
-    if (savedConfig && !isFirebaseConnected) {
-        // Auto-connect if config exists
-        configureFirebase();
-    }
+    if (savedConfig && !isFirebaseConnected) configureFirebase();
 }
 
 function renderSettingsParticipants() {
     const container = document.getElementById('settingsParticipantList');
     if (!container) return;
-    let html = '<div style="max-height:300px;overflow-y:auto;">';
-    html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:5px;">';
+    let html = '<div style="max-height:300px;overflow-y:auto;"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:5px;">';
     participants.slice().sort().forEach(name => {
         html += `<div style="padding:5px 10px;background:#f8f9fa;border-radius:4px;border:1px solid #e9ecef;">${escapeHtml(name)}</div>`;
     });
@@ -2175,51 +1572,21 @@ function renderSettingsParticipants() {
 function renderSettingsStats() {
     const container = document.getElementById('settingsStats');
     if (!container) return;
-    
     const totalEvents = events.length;
-    const totalParticipants = events.reduce((sum, e) => sum + e.participants.length, 0);
-    const totalCost = events.reduce((sum, e) => sum + e.totalCost + (e.taxiCost || 0), 0);
-    const totalPaid = events.reduce((sum, e) => {
-        return sum + e.participants.filter(p => p.status === 'v').length;
-    }, 0);
-    const totalUnpaid = events.reduce((sum, e) => {
-        return sum + e.participants.filter(p => p.status === 'x' || p.status === 'o').length;
-    }, 0);
-    
+    const totalParticipants = events.reduce((s, e) => s + e.participants.length, 0);
+    const totalCost = events.reduce((s, e) => s + e.totalCost + (e.taxiCost || 0), 0);
+    const totalPaid = events.reduce((s, e) => s + e.participants.filter(p => p.status === 'v').length, 0);
+    const totalUnpaid = events.reduce((s, e) => s + e.participants.filter(p => p.status === 'x' || p.status === 'o').length, 0);
     container.innerHTML = `
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">${totalEvents}</div>
-                <div class="stat-label">Total Events</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${totalParticipants}</div>
-                <div class="stat-label">Total Sessions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${totalPaid}</div>
-                <div class="stat-label">✅ Paid</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${totalUnpaid}</div>
-                <div class="stat-label">❌ Unpaid</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">$${totalCost.toFixed(2)}</div>
-                <div class="stat-label">Total Cost</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${participants.length}</div>
-                <div class="stat-label">Total Participants</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${shuttleTypes.length}</div>
-                <div class="stat-label">Shuttle Types</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${isFirebaseConnected ? '✅' : '❌'}</div>
-                <div class="stat-label">Cloud Connected</div>
-            </div>
+            <div class="stat-card"><div class="stat-value">${totalEvents}</div><div class="stat-label">Total Events</div></div>
+            <div class="stat-card"><div class="stat-value">${totalParticipants}</div><div class="stat-label">Total Sessions</div></div>
+            <div class="stat-card"><div class="stat-value">${totalPaid}</div><div class="stat-label">✅ Paid</div></div>
+            <div class="stat-card"><div class="stat-value">${totalUnpaid}</div><div class="stat-label">❌ Unpaid</div></div>
+            <div class="stat-card"><div class="stat-value">$${totalCost.toFixed(2)}</div><div class="stat-label">Total Cost</div></div>
+            <div class="stat-card"><div class="stat-value">${participants.length}</div><div class="stat-label">Total Participants</div></div>
+            <div class="stat-card"><div class="stat-value">${shuttleTypes.length}</div><div class="stat-label">Shuttle Types</div></div>
+            <div class="stat-card"><div class="stat-value">${isFirebaseConnected ? '✅' : '❌'}</div><div class="stat-label">Cloud Connected</div></div>
         </div>
     `;
 }
@@ -2238,7 +1605,6 @@ function resetParticipants() {
 function clearAllData() {
     if (!confirm('⚠️ Delete ALL data? This includes all events, participant records, and shuttle types. This cannot be undone!')) return;
     if (!confirm('Are you absolutely sure?')) return;
-    
     events = [];
     participants = DEFAULT_PARTICIPANTS.slice();
     shuttleTypes = DEFAULT_SHUTTLE_TYPES.slice();
@@ -2258,14 +1624,7 @@ function clearAllData() {
 // ============================================================
 
 function exportData() {
-    const data = {
-        version: '2.0',
-        exportedAt: new Date().toISOString(),
-        participants: participants,
-        events: events,
-        shuttleTypes: shuttleTypes
-    };
-    
+    const data = { version: '2.0', exportedAt: new Date().toISOString(), participants, events, shuttleTypes };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -2300,12 +1659,8 @@ function importData() {
                     renderShuttleSelect();
                     if (isFirebaseConnected) syncToCloud();
                     alert('✅ Data imported successfully!');
-                } else {
-                    alert('Invalid data format!');
-                }
-            } catch (err) {
-                alert('Error reading file: ' + err.message);
-            }
+                } else { alert('Invalid data format!'); }
+            } catch (err) { alert('Error reading file: ' + err.message); }
         };
         reader.readAsText(file);
     };
@@ -2318,34 +1673,23 @@ function importData() {
 
 function init() {
     loadData();
-    
-    // Safety check for eventDate
     const dateInput = document.getElementById('eventDate');
-    if (dateInput) {
-        dateInput.value = getToday();
-    } else {
-        console.warn('⚠️ eventDate input not found – skipping set.');
-    }
-    
+    if (dateInput) dateInput.value = getToday();
+    else console.warn('⚠️ eventDate input not found');
+
     renderShuttleSelect();
     const shuttleSelect = document.getElementById('shuttleType');
-    if (shuttleSelect) {
-        shuttleSelect.addEventListener('change', updateShuttleCost);
-    }
-    
+    if (shuttleSelect) shuttleSelect.addEventListener('change', updateShuttleCost);
+
     renderParticipantList('');
     renderEvents();
     renderParticipantSummary('all', '');
     renderEarnings();
     renderSettings();
-    
-    // Initialize participant summary filter
     initParticipantSummaryFilter();
-    
+
     const savedConfig = loadFirebaseConfig();
-    if (savedConfig) {
-        setTimeout(() => configureFirebase(), 500);
-    }
+    if (savedConfig) setTimeout(() => configureFirebase(), 500);
 }
 
 document.addEventListener('DOMContentLoaded', init);
