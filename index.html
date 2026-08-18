@@ -222,7 +222,8 @@
         .details-row { display: none; background: #f8f9fa; }
         .details-row.open { display: table-row; }
         .details-row td { padding: 10px 20px; }
-        .details-row .sub-table {
+        
+        .sub-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
@@ -231,10 +232,11 @@
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .details-row .sub-table th { background: #e9ecef; color: #2c3e50; font-weight: 600; padding: 6px 12px; text-align: left; font-size: 12px; }
-        .details-row .sub-table td { padding: 6px 12px; border-bottom: 1px solid #f1f3f5; }
-        .details-row .sub-table tr:last-child td { border-bottom: none; }
-        .details-row .sub-table .total-row { font-weight: bold; background: #fff3cd; }
+        .sub-table th { background: #e9ecef; color: #2c3e50; font-weight: 600; padding: 6px 12px; text-align: left; font-size: 12px; }
+        .sub-table td { padding: 6px 12px; border-bottom: 1px solid #f1f3f5; }
+        .sub-table tr:last-child td { border-bottom: none; }
+        .sub-table .total-row { font-weight: bold; background: #fff3cd; }
+        
         .toggle-details {
             background: none;
             border: none;
@@ -1129,8 +1131,6 @@ function saveEvent() {
     }
 
     const shuttlesUsed = parseInt(document.getElementById('shuttlesUsed').value) || 0;
-
-    // ✅ FIX: Allow venueCost to be 0
     let venueCost = parseFloat(document.getElementById('venueCost').value);
     if (isNaN(venueCost) || venueCost < 0) venueCost = 0;
 
@@ -1161,7 +1161,7 @@ function saveEvent() {
         shuttlePrice: shuttle.pricePerTube,
         shuttlesUsed: shuttlesUsed,
         shuttleCostPerShuttle: shuttleCostPerShuttle,
-        venueCost: venueCost, // ✅ Always store the actual venue cost (including 0)
+        venueCost: venueCost,
         taxiCost: taxiCost,
         actualFee: actualFee,
         taxiExcluded: taxiExcluded,
@@ -1216,7 +1216,6 @@ function editEvent(date) {
     updateShuttleCost();
 
     document.getElementById('shuttlesUsed').value = event.shuttlesUsed;
-    // ✅ Restore venueCost (allow 0)
     document.getElementById('venueCost').value = event.venueCost !== undefined ? event.venueCost : 17;
     document.getElementById('taxiCost').value = event.taxiCost || 0;
     document.getElementById('actualFee').value = event.actualFee || 0;
@@ -1267,29 +1266,180 @@ function clearForm() {
 }
 
 // ============================================================
-// TAB 2: EVENTS
+// TAB 2: EVENTS – NEW WITH PARTICIPANT DETAILS
 // ============================================================
 
 function renderEvents() {
     const container = document.getElementById('eventsTableContainer');
     if (!container) return;
+
     if (events.length === 0) {
         container.innerHTML = '<p style="text-align: center; padding: 40px; color: #7f8c8d;">No events recorded yet. Start by adding an event!</p>';
         document.getElementById('eventsSummary').innerHTML = '';
         return;
     }
+
     const sorted = [...events].sort((a, b) => new Date(b.date) - new Date(a.date));
-    let html = `<div class="table-wrapper"><table><thead><tr><th>Date</th><th>Participants</th><th>Paid</th><th>Shuttle</th><th>Shuttles</th><th>Cost/Head</th><th>Taxi/Head</th><th>Total Cost</th><th>Actual Fee</th><th class="no-print">Actions</th></tr></thead><tbody>`;
+
+    let html = `
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:40px;"></th>
+                        <th>Date</th>
+                        <th>Participants</th>
+                        <th>Paid</th>
+                        <th>Shuttle</th>
+                        <th>Shuttles</th>
+                        <th>Cost/Head</th>
+                        <th>Taxi/Head</th>
+                        <th>Total Cost</th>
+                        <th>Actual Fee</th>
+                        <th class="no-print">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
     sorted.forEach(event => {
         const paidCount = event.participants.filter(p => p.status === 'v').length;
-        const total = event.participants.length;
+        const totalCount = event.participants.length;
         const totalCost = event.totalCost + (event.taxiCost || 0);
         const fee = event.actualFee || 0;
-        html += `<tr><td><strong>${formatDate(event.date)}</strong></td><td>${total}</td><td><span class="badge badge-paid">${paidCount}</span></td><td><span class="badge badge-info">${escapeHtml(event.shuttleName || 'Unknown')}</span></td><td>${event.shuttlesUsed}</td><td>$${event.costPerHead ? event.costPerHead.toFixed(2) : '0.00'}</td><td>$${event.taxiPerHead ? event.taxiPerHead.toFixed(2) : '0.00'}</td><td>$${totalCost.toFixed(2)}</td><td>$${fee.toFixed(2)}</td><td class="no-print"><button class="btn btn-warning btn-sm" onclick="editEvent('${event.id}')">✏️</button><button class="btn btn-danger btn-sm" onclick="deleteEvent('${event.id}')">🗑️</button></td></tr>`;
+        const detailsId = 'event_details_' + event.id.replace(/\s/g, '_');
+
+        html += `
+            <tr class="main-row" id="row_${detailsId}">
+                <td>
+                    <button class="toggle-details" onclick="toggleEventDetails('${detailsId}')" title="Show/hide participants">▶</button>
+                </td>
+                <td><strong>${formatDate(event.date)}</strong></td>
+                <td>${totalCount}</td>
+                <td><span class="badge badge-paid">${paidCount}</span></td>
+                <td><span class="badge badge-info">${escapeHtml(event.shuttleName || 'Unknown')}</span></td>
+                <td>${event.shuttlesUsed}</td>
+                <td>$${event.costPerHead ? event.costPerHead.toFixed(2) : '0.00'}</td>
+                <td>$${event.taxiPerHead ? event.taxiPerHead.toFixed(2) : '0.00'}</td>
+                <td>$${totalCost.toFixed(2)}</td>
+                <td>$${fee.toFixed(2)}</td>
+                <td class="no-print">
+                    <button class="btn btn-warning btn-sm" onclick="editEvent('${event.id}')">✏️</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteEvent('${event.id}')">🗑️</button>
+                </td>
+            </tr>
+            <tr class="details-row" id="${detailsId}">
+                <td colspan="11">
+                    ${buildEventParticipantsTable(event)}
+                </td>
+            </tr>
+        `;
     });
+
     html += '</tbody></table></div>';
     container.innerHTML = html;
     updateEventsSummary();
+}
+
+function buildEventParticipantsTable(event) {
+    const participants = event.participants || [];
+    if (participants.length === 0) {
+        return '<p style="padding: 10px; color: #7f8c8d;">No participants recorded for this event.</p>';
+    }
+
+    let rows = '';
+    let paidCount = 0;
+    let unpaidCount = 0;
+    let venueOnlyCount = 0;
+    let totalCollected = 0;
+
+    const sorted = [...participants].sort((a, b) => {
+        const order = { 'v': 0, 'x': 1, 'o': 2 };
+        return (order[a.status] || 0) - (order[b.status] || 0);
+    });
+
+    sorted.forEach(p => {
+        let statusText = '';
+        let statusClass = '';
+        let amount = 0;
+        let note = '';
+
+        if (p.status === 'v') {
+            statusText = '✅ Paid';
+            statusClass = 'badge-paid';
+            amount = event.actualFee || 0;
+            paidCount++;
+            totalCollected += amount;
+        } else if (p.status === 'x') {
+            statusText = '❌ Unpaid';
+            statusClass = 'badge-unpaid';
+            amount = event.actualFee || event.costPerHead || 0;
+            unpaidCount++;
+        } else if (p.status === 'o') {
+            statusText = '🏸 Venue Only';
+            statusClass = 'badge-venue-only';
+            amount = event.venueCost || 0;
+            note = '(venue only)';
+            venueOnlyCount++;
+        } else {
+            statusText = '❌ Not attending';
+            statusClass = '';
+            amount = 0;
+        }
+
+        rows += `
+            <tr>
+                <td><strong>${escapeHtml(p.name)}</strong></td>
+                <td><span class="badge ${statusClass}">${statusText}</span></td>
+                <td>$${amount.toFixed(2)}</td>
+                <td>${note}</td>
+            </tr>
+        `;
+    });
+
+    const totalUnpaidAmount = participants.reduce((sum, p) => {
+        if (p.status === 'x') return sum + (event.actualFee || event.costPerHead || 0);
+        if (p.status === 'o') return sum + (event.venueCost || 0);
+        return sum;
+    }, 0);
+
+    const summaryHTML = `
+        <div style="margin-top: 10px; padding: 8px 12px; background: #e9ecef; border-radius: 6px; font-size: 13px; display: flex; gap: 20px; flex-wrap: wrap;">
+            <span>📊 <strong>${paidCount}</strong> Paid</span>
+            <span>❌ <strong>${unpaidCount}</strong> Unpaid</span>
+            <span>🏸 <strong>${venueOnlyCount}</strong> Venue Only</span>
+            <span>💰 Collected: <strong>$${totalCollected.toFixed(2)}</strong></span>
+            <span>💸 Unpaid: <strong>$${totalUnpaidAmount.toFixed(2)}</strong></span>
+            ${event.actualFee ? `<span>💵 Fee/Person: <strong>$${event.actualFee.toFixed(2)}</strong></span>` : ''}
+        </div>
+    `;
+
+    return `
+        <table class="sub-table" style="margin-bottom: 0;">
+            <thead>
+                <tr>
+                    <th style="width:30%;">Name</th>
+                    <th style="width:30%;">Status</th>
+                    <th style="width:20%;">Amount</th>
+                    <th style="width:20%;">Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows}
+            </tbody>
+        </table>
+        ${summaryHTML}
+    `;
+}
+
+function toggleEventDetails(rowId) {
+    const row = document.getElementById(rowId);
+    if (!row) return;
+    row.classList.toggle('open');
+    const toggleBtn = document.querySelector(`#row_${rowId} .toggle-details`);
+    if (toggleBtn) {
+        toggleBtn.textContent = row.classList.contains('open') ? '▼' : '▶';
+    }
 }
 
 function updateEventsSummary() {
